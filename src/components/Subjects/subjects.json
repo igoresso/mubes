@@ -1,0 +1,39 @@
+{
+  "subjects": [
+    {
+      "id": 1,
+      "code": "BMEN000001",
+      "name": "Subject 1",
+      "level": "undergrad",
+      "handbookLink": "https://handbook.unimelb.edu.au/"
+    },
+    {
+      "id": 2,
+      "code": "BMEN000002",
+      "name": "Subject 2",
+      "level": "undergrad",
+      "handbookLink": "https://handbook.unimelb.edu.au/"
+    },
+    {
+      "id": 3,
+      "code": "BMEN000003",
+      "name": "Subject 3",
+      "level": "postgrad",
+      "handbookLink": "https://handbook.unimelb.edu.au/"
+    },
+    {
+      "id": 4,
+      "code": "BMEN000004",
+      "name": "Subject 4",
+      "level": "postgrad",
+      "handbookLink": "https://handbook.unimelb.edu.au/"
+    },
+    {
+      "id": 5,
+      "code": "BMEN000005",
+      "name": "Subject 5",
+      "level": "postgrad",
+      "handbookLink": "https://handbook.unimelb.edu.au/"
+    }
+  ]
+}

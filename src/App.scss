@@ -1,0 +1,30 @@
+body {
+  min-width: 320px;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
+
+.page-title {
+  position: relative;
+
+  &::after {
+    content: "";
+    width: 100px;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -15px;
+    margin: 0 auto;
+    background-color: #0994dc;
+    border-radius: 1px;
+  }
+}

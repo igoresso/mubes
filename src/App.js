@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Main from './components/Main';
+import Membership from './components/Membership';
+import Committee from './components/Committee';
+import Contacts from './components/Contacts';
+import Subjects from './components/Subjects';
+import Faq from './components/Faq';
 
-function App() {
+import './App.scss';
+
+export default () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Header/>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route exact path="/membership">
+            <Membership />
+          </Route>
+          <Route exact path="/committee">
+            <Committee />
+          </Route>
+          <Route exact path="/contacts">
+            <Contacts />
+          </Route>
+          <Route exact path="/subjects">
+            <Subjects />
+          </Route>
+          <Route exact path="/faq">
+            <Faq />
+          </Route>
+        </Switch>
+      </main>
+      <Footer />
+    </Router>
+  )
 }
-
-export default App;
