@@ -1,3 +1,3 @@
-import Committee from './Committee'
+import Committee from './Committee';
 
 export default Committee

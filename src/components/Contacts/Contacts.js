@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 
 export default () => {
+  useEffect(() => {
+    document.title = "MUBES - Contacts";
+  })
+
   return (
     <Container as="section">
       <h1 className="page-title mb-5 pt-2 text-center">Contacts</h1>
@@ -11,21 +15,21 @@ export default () => {
           <Form className="pb-4">
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Your Name" />
+              <Form.Control type="text" placeholder="Your Name" disabled />
             </Form.Group>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="your@email.com" />
+              <Form.Control type="email" placeholder="your@email.com" disabled />
             </Form.Group>
             <Form.Group controlId="subject">
               <Form.Label>Subject</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control type="text" disabled />
             </Form.Group>
-            <Form.Group controlId="subject">
+            <Form.Group controlId="message">
               <Form.Label>Message</Form.Label>
-              <Form.Control as="textarea" rows="5" />
+              <Form.Control as="textarea" rows="5" disabled />
             </Form.Group>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled>Submit</Button>
           </Form>
         </Col>
       </Row>

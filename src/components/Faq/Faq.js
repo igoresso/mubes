@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
-//import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Tabletop from 'tabletop';
 import { Container, Spinner, Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 
 import './Faq.scss'
 
-import { faq } from './data.json';
-
-export default () => {
-  const [panelIndex, setPanelIndex] = useState("1")
-
-  const loading = false;
-  //const [loading, setLoading] = useState(true);
-
-  //useEffect(() => {}, [loading]);
+export default (props) => {
+  const [panelIndex, setPanelIndex] = useState("1");
 
   const CustomToggle = ({ children, eventKey }) => {
     const customOnClick = useAccordionToggle(eventKey, () => {
@@ -28,10 +21,31 @@ export default () => {
     )
   }
 
+  const fetchFaq = () => {
+    Tabletop.init( {
+      key: 'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
+      simpleSheet: true,
+      prettyColumnNames: false,
+      wanted: ["FAQ"] }
+    ).then(data => { 
+      props.setFaq(data);
+    })
+  }
+
+  useEffect(() => {
+    if (!props.faq) {
+      fetchFaq();
+    }
+  })
+
+  useEffect(() => {
+    document.title = "MUBES - FAQ";
+  })
+
   return (
     <Container as="section">
       <h1 className="page-title mb-5 pt-2 text-center">FAQ &amp; Answers</h1>
-      { loading ? (
+      { !props.faq ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">
             <span className="sr-only">Loading...</span>
@@ -39,7 +53,7 @@ export default () => {
         </div>
       ) : (
         <Accordion defaultActiveKey="1" className="mb-4">
-          { faq.map(entry => 
+          { props.faq.map(entry => 
             <Card className="border rounded mb-1" key={ entry.id }>
               <Card.Header className="py-2">
                 <CustomToggle eventKey={ entry.id.toString() }>

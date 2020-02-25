@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -12,6 +12,10 @@ import Faq from './components/Faq';
 import './App.scss';
 
 export default () => {
+  const [committee, setCommittee] = useState(null);
+  const [subjects, setSubjects] = useState(null);
+  const [faq, setFaq] = useState(null);
+
   return (
     <Router>
       <Header/>
@@ -24,16 +28,16 @@ export default () => {
             <Membership />
           </Route>
           <Route exact path="/committee">
-            <Committee />
+            <Committee committee={ committee } setCommittee={ setCommittee } />
           </Route>
           <Route exact path="/contacts">
             <Contacts />
           </Route>
           <Route exact path="/subjects">
-            <Subjects />
+            <Subjects subjects={ subjects } setSubjects={ setSubjects } />
           </Route>
           <Route exact path="/faq">
-            <Faq />
+            <Faq faq={ faq } setFaq={ setFaq }/>
           </Route>
         </Switch>
       </main>

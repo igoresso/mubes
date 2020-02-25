@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
-//import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Tabletop from 'tabletop';
 import { Container, Spinner, Form, InputGroup, ToggleButtonGroup, ToggleButton, Card } from 'react-bootstrap';
 
-import { subjects } from './subjects.json';
-import { reviews } from './reviews.json';
-
-subjects.forEach(subject =>{
-  subject['reviews'] = reviews.filter(review => review.subjectCode === subject.code);
-})
-
-export default () => {
-  const loading = false;
+export default (props) => {
   const [levelFilter, setLevelFilter] = useState("all")
   const [codeFilter, setCodeFilter] = useState("");
 
@@ -25,11 +17,36 @@ export default () => {
     setLevelFilter("all");
   }
 
+  const fetchSubjects = () => {
+    Tabletop.init( {
+      key: 'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
+      prettyColumnNames: false,
+      wanted: ["Subjects", "Reviews"] }
+    ).then(data => {
+      const subjects = data.Subjects.elements;
+      const reviews = data.Reviews.elements;
+      subjects.forEach(subject =>{
+        subject['reviews'] = reviews.filter(review => review.subjectcode === subject.code);
+      })
+      props.setSubjects(subjects);
+    })
+  }
+
+  useEffect(() => {
+    if (!props.subjects) {
+      fetchSubjects();
+    }
+  })
+
+  useEffect(() => {
+    document.title = "MUBES - Subjects";
+  })
+
   return (
     <Container as="section">
       <h1 className="page-title mb-5 pt-2 text-center">Subjects</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At consectetur lorem donec massa sapien faucibus et molestie ac. Varius duis at consectetur lorem donec massa. Id aliquet lectus proin nibh nisl condimentum id. Urna et pharetra pharetra massa massa ultricies mi quis.</p>
-      { loading ? (
+      { !props.subjects ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">
             <span className="sr-only">Loading...</span>
@@ -46,11 +63,11 @@ export default () => {
               </InputGroup.Prepend>
               <Form.Control as="select" value={ codeFilter } onChange={ onSubjectChange }>
                 <option value="">Select subject</option>
-                { subjects.map(subject => <option value={ subject.code } key={ subject.id }>{ `${subject.code} - ${subject.name}` }</option>) }
+                { props.subjects.map(subject => <option value={ subject.code } key={ subject.id }>{ `${subject.code} - ${subject.name}` }</option>) }
               </Form.Control>
             </InputGroup>
           </Form>
-          { subjects.filter(subject => 
+          { props.subjects.filter(subject => 
             (levelFilter === "all" && codeFilter === "") ||
             (levelFilter === "all" && subject.code === codeFilter) ||
             (codeFilter === "" && subject.level === levelFilter)
@@ -62,10 +79,12 @@ export default () => {
               </Card.Header>
               <Card.Body>
                 <h3 className="h5">Reviews</h3>
-                {subject.reviews.map(review =>
+                { subject.reviews.map(review =>
                   <blockquote className="blockquote mb-4" key={ review.id }>
                     <p>{ review.text }</p>
-                    <footer className="blockquote-footer"><cite title={ review.author }>{ review.author } ({ review.year })</cite></footer>
+                    <footer className="blockquote-footer">
+                      <cite title={ review.author }>{ review.author } ({ review.year })</cite>
+                    </footer>
                   </blockquote>
                 )}
               </Card.Body>

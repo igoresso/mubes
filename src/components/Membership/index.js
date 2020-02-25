@@ -1,3 +1,3 @@
-import Membership from './Membership'
+import Membership from './Membership';
 
 export default Membership
