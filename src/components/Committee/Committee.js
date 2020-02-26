@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Tabletop from 'tabletop';
 import { Container, Spinner } from 'react-bootstrap';
 
-import './Committee.scss'
+import './Committee.scss';
 
 export default (props) => {
   const fetchCommittee = () => {

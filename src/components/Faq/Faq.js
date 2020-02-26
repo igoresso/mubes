@@ -61,7 +61,7 @@ export default (props) => {
                 </CustomToggle> 
               </Card.Header>
               <Accordion.Collapse eventKey={entry.id.toString()}>
-                <Card.Body>{ entry.answer }</Card.Body>
+                <Card.Body dangerouslySetInnerHTML={{ __html: entry.answer }} />
               </Accordion.Collapse>
           </Card>
           )}
