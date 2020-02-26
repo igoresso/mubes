@@ -77,7 +77,7 @@ export default (props) => {
             <Card className="mb-4" key={ subject.id }>
               <Card.Header>
                 <h2 className="h4 m-0">{ `${subject.code} - ${subject.name}` }</h2>
-                <a rel="noopener noreferrer" href={ subject.handbookLink } target="_blank">Handbook</a>
+                <a rel="noopener noreferrer" href={ subject.handbooklink } target="_blank">Handbook</a>
               </Card.Header>
               <Card.Body>
                 <h3 className="h5">Reviews</h3>
