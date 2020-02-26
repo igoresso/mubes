@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
+import Recaptcha from 'react-recaptcha';
 import * as Yup from 'yup';
-import Axios from 'axios';
-import { Container, Form, Col, Button } from 'react-bootstrap';
+import { Container, Form, Col, Button, Alert } from 'react-bootstrap';
 
 const schema = Yup.object({
   firstName: Yup.string().required("Please enter your first name"),
@@ -11,19 +11,42 @@ const schema = Yup.object({
   studentNumber: Yup.number("Please enter a valid student number"),
   international: Yup.string().required(),
   graduate: Yup.string().required(),
-  over18: Yup.string().required()
+  over18: Yup.string().required(),
+  recaptcha: Yup.string().required()
 });
 
 export default () => {
-  const date = new Date();
-  const utcDate = date.toUTCString();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertVariant, setAlertVariant] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+
   const handleSubmit = (values, actions) => {
-    values['timeStamp'] = utcDate;
-    console.log(values);
+    const date = new Date();
+    const utcDate = date.toUTCString();
+
+    const formData = new FormData();
+    formData.append('timeStamp', utcDate);
+    formData.append('firstName', values.firstName);
+    formData.append('lastName', values.lastName);
+    formData.append('email', values.email);
+    formData.append('studentNumber', values.studentNumber);
+    formData.append('international', values.international);
+    formData.append('graduate', values.graduate);
+    formData.append('over18', values.over18);
+ 
     const url = "https://script.google.com/macros/s/AKfycbweNVIGc--YLlFpiAe6ySWJJW9IAsFVDX46AlJu6eciXlwtzLC7/exec";
-    Axios.post(url, values)
-    .then(response => console.log('Success!', response))
-    .catch(error => console.error('Error!', error.message))
+    fetch(url, { method: 'POST', body: formData })
+      .then(response => {
+        actions.resetForm();
+        setAlertVariant("success");
+        setAlertMessage("You did it!");
+        setShowAlert(true);
+      })
+      .catch(error => {
+        setAlertVariant("danger");
+        setAlertMessage("Oh, no! Something is wrong.");
+        setShowAlert(true);
+      })
   }
 
   useEffect(() => {
@@ -41,23 +64,30 @@ export default () => {
       </p>
       <Formik
         initialValues={{
+          firstName: "",
+          lastName: "",
+          email: "",
+          studentNumber: "",
           international: "",
           graduate: "",
-          over18: ""
+          over18: "",
+          recaptcha: ""
         }}
         validationSchema={ schema }
         onSubmit={ handleSubmit }
-        validateOnChange={ false }
+        validateOnMount
       >
         {({
           values,
           errors,
-          touched,
           handleChange,
           handleBlur,
           handleSubmit,
           isSubmitting,
-          setFieldValue
+          isValid,
+          setFieldValue,
+          submitForm,
+          submitCount
         }) => (
           <Form className="pb-4" noValidate onSubmit={ handleSubmit }>
             <Form.Row>
@@ -70,7 +100,7 @@ export default () => {
                   value={ values.firstName }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  isInvalid={ !!errors.firstName }
+                  isInvalid={ submitCount>0 && !!errors.firstName }
                 />
                 <Form.Control.Feedback type="invalid">
                   { errors.firstName }
@@ -85,7 +115,7 @@ export default () => {
                   value={ values.lastName }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  isInvalid={ !!errors.lastName }
+                  isInvalid={ submitCount>0 && !!errors.lastName }
                 />
                 <Form.Control.Feedback type="invalid">
                   { errors.lastName }
@@ -102,7 +132,7 @@ export default () => {
                   value={ values.email }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  isInvalid={ !!errors.email }
+                  isInvalid={ submitCount>0 && !!errors.email }
                 />
                 <Form.Control.Feedback type="invalid">
                   { errors.email }
@@ -117,7 +147,7 @@ export default () => {
                   value={ values.studentNumber }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  isInvalid={ !!errors.studentNumber }
+                  isInvalid={ submitCount>0 && !!errors.studentNumber }
                 />
               </Form.Group>
             </Form.Row>
@@ -135,7 +165,7 @@ export default () => {
                   setFieldValue('international', 'yes')
                 }}
                 onBlur={ handleBlur }
-                isInvalid={ !!errors.international }
+                isInvalid={ submitCount>0 && !!errors.international }
               />
               <Form.Check 
                 custom
@@ -149,7 +179,21 @@ export default () => {
                   setFieldValue('international', 'no')
                 }}
                 onBlur={ handleBlur }
-                isInvalid={ !!errors.international }
+                isInvalid={ submitCount>0 && !!errors.international }
+              />
+              <Form.Check 
+                custom
+                type="radio"
+                name="international"
+                value={ values.international }
+                label="N/A"
+                id="notApplicableInternational"
+                checked={ values.international === 'N/A' }
+                onChange={() => {
+                  setFieldValue('international', 'N/A')
+                }}
+                onBlur={ handleBlur }
+                isInvalid={ submitCount>0 && !!errors.international }
               />
             </Form.Group>
             <Form.Group>
@@ -166,21 +210,35 @@ export default () => {
                   setFieldValue('graduate', 'yes')
                 }}
                 onBlur={ handleBlur }
-                isInvalid={ !!errors.graduate }
+                isInvalid={ submitCount>0 && !!errors.graduate }
               />
               <Form.Check
                 custom
                 type="radio"
                 name="graduate"
                 value={ values.graduate }
-                label="Yes"
+                label="No"
                 id="undergraduate"
                 checked={ values.graduate === 'no' }
                 onChange={() => {
                   setFieldValue('graduate', 'no')
                 }}
                 onBlur={ handleBlur }
-                isInvalid={ !!errors.graduate }
+                isInvalid={ submitCount>0 && !!errors.graduate }
+              />
+              <Form.Check
+                custom
+                type="radio"
+                name="graduate"
+                value={ values.graduate }
+                label="N/A"
+                id="notApplicableGraduate"
+                checked={ values.graduate === 'N/A' }
+                onChange={() => {
+                  setFieldValue('graduate', 'N/A')
+                }}
+                onBlur={ handleBlur }
+                isInvalid={ submitCount>0 && !!errors.graduate }
               />
             </Form.Group>
             <Form.Group>
@@ -197,27 +255,39 @@ export default () => {
                   setFieldValue('over18', 'yes')
                 }}
                 onBlur={ handleBlur }
-                isInvalid={ !!errors.over18 }
+                isInvalid={ submitCount>0 && !!errors.over18 }
               />
               <Form.Check
                 custom
                 type="radio"
                 name="over18"
                 value={ values.over18 }
-                label="Yes"
+                label="No"
                 id="under18"
                 checked={ values.over18 === 'no' }
                 onChange={() => {
                   setFieldValue('over18', 'no')
                 }}
                 onBlur={ handleBlur }
-                isInvalid={ !!errors.over18 }
+                isInvalid={ submitCount>0 && !!errors.over18 }
               />
             </Form.Group>
-            <Button type="submit" disabled={ isSubmitting }>Submit</Button>
+            <Recaptcha
+              sitekey="6Lcv7NsUAAAAALQAuTxc3JqMU7FT6yLOnnrLbbFh"
+              render="explicit"
+              verifyCallback={ res => setFieldValue('recaptcha', res) }
+              expiredCallback={ res => setFieldValue('recaptcha', "") }
+              className="mb-2"
+            />
+            <Button type="submit" disabled={ isSubmitting || errors.recaptcha }>Submit</Button>
           </Form>
         )}
       </Formik>
+      { showAlert &&
+        <Alert variant={ alertVariant } onClose={ () => setShowAlert(false) } dismissible>
+          { alertMessage }
+        </Alert>
+      } 
     </Container>
   )
 }
