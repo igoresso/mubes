@@ -25,7 +25,7 @@ export default () => {
             </Col>
             <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
             <h3 className="h3 text-center text-md-left">Launch your own biomedical startup</h3>
-              <p className="lead text-center text-md-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam hic doloremque voluptatem nobis molestiae, nam ipsum cum nulla aliquam, perspiciatis non culpa cupiditate quasi quo, tempore et rerum. Tempore, ducimus.</p>
+              <p className="lead text-center text-md-left"> Masters of Biomedical Engineering has more subjects where you are given a chance to build your own devices. Check out <a rel="noopener noreferrer" href="https://endeavour.unimelb.edu.au/success-stories/navi-technologies" target="_blank">Navi Technologies</a> and <a rel="noopener noreferrer" href="https://endeavour.unimelb.edu.au/success-stories/navi-technologiehttps://eng.unimelb.edu.au/ingenium/graduate-success-stories/biomedical-engineering-startup-stelect-wins-medtechs-got-talent" target="_blank">Stelect</a> startups co-founded by our alumni!</p>
             </Col>
           </Row>
         </Container>
@@ -37,7 +37,7 @@ export default () => {
               </Col>
               <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
                 <h3 className="text-center text-md-left">Deep dive into research</h3>
-                <p className="lead text-center text-md-left">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae hic labore maiores nesciunt ipsam veritatis quos. Eius vitae voluptate repellendus doloremque non, rerum maiores minus beatae ipsa necessitatibus sint alias.</p>
+                <p className="lead text-center text-md-left">Start with an honours year in a lab of your choice - both academic and research institutes. Get involved in research internships.</p>
               </Col>
             </Row>
           </Container>
@@ -49,7 +49,7 @@ export default () => {
             </Col>
             <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
             <h3 className="h3 text-center text-md-left">Join industry as an engineer</h3>
-              <p className="lead text-center text-md-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam quasi maxime harum provident accusantium voluptatum repudiandae labore libero, facere quae aliquam eum neque nam modi aliquid deleniti magnam rem unde?</p>
+              <p className="lead text-center text-md-left">You are doing an engineering degree accredited by the Engineers Australia. The program gives you problem solving and interpersonal skills which are in high demand and can be used in any engineering field.</p>
             </Col>
           </Row>
         </Container>

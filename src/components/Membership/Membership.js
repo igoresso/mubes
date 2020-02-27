@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import Recaptcha from 'react-recaptcha';
 import * as Yup from 'yup';
-import { Container, Form, Col, Button, Alert } from 'react-bootstrap';
+import { Container, Form, Col, Button, Spinner, Alert } from 'react-bootstrap';
+
+import './Membership.scss';
 
 const schema = Yup.object({
   firstName: Yup.string().required("Please enter your first name"),
@@ -25,28 +27,32 @@ export default () => {
     const utcDate = date.toUTCString();
 
     const formData = new FormData();
-    formData.append('timeStamp', utcDate);
-    formData.append('firstName', values.firstName);
-    formData.append('lastName', values.lastName);
-    formData.append('email', values.email);
-    formData.append('studentNumber', values.studentNumber);
-    formData.append('international', values.international);
-    formData.append('graduate', values.graduate);
-    formData.append('over18', values.over18);
- 
+    formData.set('timeStamp', utcDate);
+    formData.set('firstName', values.firstName);
+    formData.set('lastName', values.lastName);
+    formData.set('email', values.email);
+    formData.set('studentNumber', values.studentNumber);
+    formData.set('international', values.international);
+    formData.set('graduate', values.graduate);
+    formData.set('over18', values.over18);
+    formData.set('recaptcha', values.recaptcha);
+
     const url = "https://script.google.com/macros/s/AKfycbweNVIGc--YLlFpiAe6ySWJJW9IAsFVDX46AlJu6eciXlwtzLC7/exec";
-    fetch(url, { method: 'POST', body: formData })
-      .then(response => {
-        actions.resetForm();
-        setAlertVariant("success");
-        setAlertMessage("You did it!");
-        setShowAlert(true);
-      })
-      .catch(error => {
-        setAlertVariant("danger");
-        setAlertMessage("Oh, no! Something is wrong.");
-        setShowAlert(true);
-      })
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      actions.resetForm();
+      setAlertVariant("success");
+      setAlertMessage("The form has been submitted successfully!");
+      setShowAlert(true);
+    })
+    .catch(error => {
+      setAlertVariant("danger");
+      setAlertMessage("Oh, no! Something is wrong.");
+      setShowAlert(true);
+    })
   }
 
   useEffect(() => {
@@ -273,13 +279,25 @@ export default () => {
               />
             </Form.Group>
             <Recaptcha
-              sitekey="6Lcv7NsUAAAAALQAuTxc3JqMU7FT6yLOnnrLbbFh"
+              sitekey="6Ldeb9wUAAAAAKDaIIz8AObKkIvDtEY8R4XtvVTW"
               render="explicit"
               verifyCallback={ res => setFieldValue('recaptcha', res) }
               expiredCallback={ res => setFieldValue('recaptcha', "") }
               className="mb-2"
             />
-            <Button type="submit" disabled={ isSubmitting || errors.recaptcha }>Submit</Button>
+            <Button type="submit" disabled={ isSubmitting || errors.recaptcha }>
+              { isSubmitting &&
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  className="mr-1"
+                  role="status"
+                  aria-hidden="true"
+                />
+              }
+              { isSubmitting ? "Submitting..." : "Submit"}
+            </Button>
           </Form>
         )}
       </Formik>

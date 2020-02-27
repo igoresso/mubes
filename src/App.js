@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,6 +15,14 @@ export default () => {
   const [committee, setCommittee] = useState(null);
   const [subjects, setSubjects] = useState(null);
   const [faq, setFaq] = useState(null);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://www.google.com/recaptcha/api.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+  })
 
   return (
     <Router>
