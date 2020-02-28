@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import Tabletop from 'tabletop';
 import { Container, Spinner, Form, InputGroup, ToggleButtonGroup, ToggleButton, Card } from 'react-bootstrap';
 
@@ -47,7 +48,8 @@ export default (props) => {
   return (
     <Container as="section">
       <h1 className="page-title mb-5 pt-2 text-center">Subjects</h1>
-      <p>Melbourne University Biomedical Engineering Society is delighted to present you reviews for Biomedical Engineering major subjects. We hope this will help you to make an informed choice. Subject structure including all assessments can be found in the Handbook. If you have any subject specific questions feel free to contact us directly.</p>
+      <p>Melbourne University Biomedical Engineering Society is delighted to present you reviews for Biomedical Engineering major subjects. We hope this will help you to make an informed choice. Subject structure including all assessments can be found in the Handbook. If you have any subject specific questions feel free to{' '}
+        <Link to="/contacts">contact us</Link> directly.</p>
       { !props.subjects ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">

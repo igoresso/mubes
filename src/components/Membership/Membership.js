@@ -90,9 +90,7 @@ export default () => {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          isValid,
           setFieldValue,
-          submitForm,
           submitCount
         }) => (
           <Form className="pb-4" noValidate onSubmit={ handleSubmit }>
@@ -305,7 +303,7 @@ export default () => {
         <Alert variant={ alertVariant } onClose={ () => setShowAlert(false) } dismissible>
           { alertMessage }
         </Alert>
-      } 
+      }
     </Container>
   )
 }

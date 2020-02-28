@@ -12,7 +12,7 @@ export default (props) => {
       setPanelIndex( eventKey === panelIndex ? null : eventKey )
     })
 
-    const customClass = (eventKey === panelIndex) ? "text-left" : "text-left collapsed"
+    const customClass = (eventKey === panelIndex) ? "pr-4 text-left" : "pr-4 text-left collapsed"
 
     return (
       <Button variant="link" block className={ customClass } onClick={ customOnClick }>
