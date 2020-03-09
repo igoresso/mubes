@@ -1,0 +1,10 @@
+.social a {
+
+  &:hover{
+    opacity: .8;
+  }
+
+  &:active {
+    opacity: .5;
+  }
+}

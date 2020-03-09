@@ -85,7 +85,7 @@ export default (props) => {
                 <h3 className="h5">Reviews</h3>
                 { subject.reviews.map(review =>
                   <blockquote className="blockquote mb-5" key={ review.id }>
-                    <p dangerouslySetInnerHTML={{ __html: review.text }} />
+                    <div dangerouslySetInnerHTML={{ __html: review.text }} />
                     <footer className="blockquote-footer">
                       <cite title={ review.author }>{ review.author } ({ review.year })</cite>
                     </footer>

@@ -66,7 +66,7 @@ export default () => {
         Join us by filling in the form below! Membership fee is $5 and can be paid by cash at any of our events. Follow us on{' '}
         <a rel="noopener noreferrer" href="https://www.facebook.com/groups/mubes.unimelb/" target="_blank">Facebook</a>,{' '}
         <a rel="noopener noreferrer" href="https://www.linkedin.com/company/mu-bmes/about/" target="_blank">LinkedIn</a> and{' '}
-        <a rel="noopener noreferrer" href="https://www.instagram.com/biomedeng_unimelb/" target="_blank">Instagram</a>.
+        <a rel="noopener noreferrer" href="https://www.instagram.com/mubes_unimelb/" target="_blank">Instagram</a>.
       </p>
       <Formik
         initialValues={{

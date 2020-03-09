@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
+import './Footer.scss';
+
 export default () => 
   <footer className="pt-4 pb-2 bg-light">
     <Container>
-      <ul className="list-inline text-center">
+      <ul className="social list-inline text-center">
         <li className="list-inline-item mr-3">
           <a rel="noopener noreferrer" href="https://www.facebook.com/groups/mubes.unimelb/" target="_blank" aria-label="Follow us on Facebook">
             <img
@@ -26,7 +28,7 @@ export default () =>
           </a>
         </li>
         <li className="list-inline-item">
-          <a rel="noopener noreferrer" href="https://www.instagram.com/biomedeng_unimelb/" target="_blank" aria-label="Follow us on Instagram">
+          <a rel="noopener noreferrer" href="https://www.instagram.com/mubes_unimelb/" target="_blank" aria-label="Follow us on Instagram">
             <img
               src="img/instagram.svg"
               width="40"
@@ -37,5 +39,6 @@ export default () =>
         </li>
       </ul>
       <span className="d-block text-muted text-center">&copy; 2020 Melbourne University Biomedical Engineering Society</span>
+      <span className="d-block text-muted text-center">Made with <span className="text-danger">&#9829;</span> by <a className="text-decoration-none" rel="noopener noreferrer" href="https://github.com/igoresso" target="_blank">@igoresso</a></span>
     </Container>
   </footer>

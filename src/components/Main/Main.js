@@ -25,7 +25,7 @@ export default () => {
             </Col>
             <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
             <h3 className="h3 text-center text-md-left">Launch your own biomedical startup</h3>
-              <p className="lead text-center text-md-left"> Masters of Biomedical Engineering has more subjects where you are given a chance to build your own devices. Check out <a rel="noopener noreferrer" href="https://endeavour.unimelb.edu.au/success-stories/navi-technologies" target="_blank">Navi Technologies</a> and <a rel="noopener noreferrer" href="https://endeavour.unimelb.edu.au/success-stories/navi-technologiehttps://eng.unimelb.edu.au/ingenium/graduate-success-stories/biomedical-engineering-startup-stelect-wins-medtechs-got-talent" target="_blank">Stelect</a> startups co-founded by our alumni!</p>
+              <p className="lead text-center text-md-left"> Masters of Biomedical Engineering has more subjects where you are given a chance to build your own devices. Check out <a rel="noopener noreferrer" href="https://endeavour.unimelb.edu.au/success-stories/navi-technologies" target="_blank">Navi Technologies</a> and <a rel="noopener noreferrer" href="https://eng.unimelb.edu.au/ingenium/graduate-success-stories/biomedical-engineering-startup-stelect-wins-medtechs-got-talent" target="_blank">Stelect</a> startups co-founded by our alumni!</p>
             </Col>
           </Row>
         </Container>
