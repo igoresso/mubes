@@ -11,6 +11,7 @@ const schema = Yup.object({
   lastName: Yup.string().required("Please enter your last name"),
   email: Yup.string().email("Please enter a valid email").required("Please enter your email"),
   studentNumber: Yup.number("Please enter a valid student number"),
+  course: Yup.string("Please enter a valid course"),
   international: Yup.string().required(),
   graduate: Yup.string().required(),
   over18: Yup.string().required(),
@@ -32,6 +33,7 @@ export default () => {
     formData.set('lastName', values.lastName);
     formData.set('email', values.email);
     formData.set('studentNumber', values.studentNumber);
+    formData.set('course', values.course);
     formData.set('international', values.international);
     formData.set('graduate', values.graduate);
     formData.set('over18', values.over18);
@@ -74,6 +76,7 @@ export default () => {
           lastName: "",
           email: "",
           studentNumber: "",
+          course: "",
           international: "",
           graduate: "",
           over18: "",
@@ -149,6 +152,20 @@ export default () => {
                   name="studentNumber"
                   placeholder="#######"
                   value={ values.studentNumber }
+                  onChange={ handleChange }
+                  onBlur={ handleBlur }
+                  isInvalid={ submitCount>0 && !!errors.studentNumber }
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col} md={6} controlId="course">
+                <Form.Label>Course</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="course"
+                  placeholder="MEng (Biomedical)"
+                  value={ values.course }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
                   isInvalid={ submitCount>0 && !!errors.studentNumber }

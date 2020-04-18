@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Main from './components/Main';
@@ -47,6 +47,7 @@ export default () => {
           <Route exact path="/faq">
             <Faq faq={ faq } setFaq={ setFaq }/>
           </Route>
+          <Redirect to="/" />
         </Switch>
       </main>
       <Footer />
