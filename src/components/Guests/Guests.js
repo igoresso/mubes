@@ -58,7 +58,7 @@ export default (props) => {
                   />
                 </a>
               </h2>
-              <span className="d-block text-muted mb-3">{ guest.position } at <a rel="noopener noreferrer" href={ guest.url } target="_blank">{ guest.company }</a></span>
+              <span className="d-block text-muted text-center text-md-left mb-3">{ guest.position } at <a rel="noopener noreferrer" href={ guest.url } target="_blank">{ guest.company }</a></span>
               <p>{ guest.bio }</p>
               <h3 className="h5">About Company</h3>
               <p>{ guest.companyinfo }</p>
