@@ -34,6 +34,9 @@ export default () =>
               <Nav.Item as="li">
                 <Nav.Link as={NavLink} exact to="/faq" activeClassName="active">FAQ</Nav.Link>
               </Nav.Item>
+              <Nav.Item as="li">
+                <Nav.Link as={NavLink} exact to="/guests" activeClassName="active">Guests</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
       </Container>

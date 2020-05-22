@@ -1,0 +1,9 @@
+export { default as Header } from './Header';
+export { default as Footer } from './Footer';
+export { default as Main } from './Main';
+export { default as Membership } from './Membership';
+export { default as Committee } from './Committee';
+export { default as Contacts } from './Contacts';
+export { default as Subjects } from './Subjects';
+export { default as Faq } from './Faq';
+export { default as Guests } from './Guests';

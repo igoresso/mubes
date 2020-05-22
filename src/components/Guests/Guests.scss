@@ -1,0 +1,17 @@
+.guests {
+  img {
+  object-fit: cover;
+  object-position: center;
+  }
+  &__link {
+    filter: grayscale(1);
+
+    &:hover {
+      filter: grayscale(0);
+    }
+
+    &:active {
+      filter: grayscale(.5);
+    }
+  }
+} 

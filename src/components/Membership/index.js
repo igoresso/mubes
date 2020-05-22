@@ -1,3 +1,1 @@
-import Membership from './Membership';
-
-export default Membership
+export { default } from './Membership';

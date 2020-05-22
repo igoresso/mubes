@@ -1,3 +1,1 @@
-import Subjects from './Subjects';
-
-export default Subjects
+export { default } from './Subjects';
