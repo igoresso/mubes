@@ -12,7 +12,6 @@ export default (props) => {
       prettyColumnNames: false,
       wanted: ["Guests"] }
     ).then(data => { 
-      console.log(data);
       props.setGuests(data);
     })
   }
@@ -48,7 +47,8 @@ export default (props) => {
             />
             <div className="d-flex flex-column align-items-center align-items-md-start">
               <h2 className="h3 mb-1">{ guest.name }
-                <a className="guests__link ml-2" rel="noopener noreferrer" href={ guest.linkedin } target="_blank" aria-label={ "Follow " + guest.name + " on LinkedIn" }>
+                { guest.linkedin &&
+                  <a className="guests__link ml-2" rel="noopener noreferrer" href={ guest.linkedin } target="_blank" aria-label={ "Follow " + guest.name + " on LinkedIn" }>
                   <img
                     className="align-baseline"
                     src="img/linkedin.svg"
@@ -57,12 +57,15 @@ export default (props) => {
                     alt="LinkedIn logo"
                   />
                 </a>
+                }
               </h2>
               <span className="d-block text-muted text-center text-md-left mb-3">{ guest.position } at <a rel="noopener noreferrer" href={ guest.url } target="_blank">{ guest.company }</a></span>
               <p>{ guest.bio }</p>
               <h3 className="h5">About Company</h3>
               <p>{ guest.companyinfo }</p>
-              
+              { guest.recording &&
+                <span className="text-muted">The recording is available <a rel="noopener noreferrer" href={ guest.recording } target="_blank">here</a>.</span>
+              }
             </div>
           </li>
         )}
