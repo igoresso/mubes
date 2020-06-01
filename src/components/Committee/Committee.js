@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Tabletop from 'tabletop';
+import { Helmet } from "react-helmet";
 import { Container, Spinner } from 'react-bootstrap';
 
 import './Committee.scss';
@@ -22,12 +23,13 @@ export default (props) => {
     }
   })
 
-  useEffect(() => {
-    document.title = "MUBES - Committee";
-  })
-
   return (
     <Container as="section">
+      <Helmet>
+        <title>MUBES - Committee</title>
+        <meta name="description" content="Meet the committee!" />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">Committee</h1>
       { !props.committee ? (
         <div className="text-center m-5">

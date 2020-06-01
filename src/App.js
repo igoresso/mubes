@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Header, Footer, Main, Membership, Committee, Contacts, Subjects, Faq, Guests } from './components';
 
@@ -12,6 +13,11 @@ export default () => {
 
   return (
     <Router>
+      <Helmet>
+        <title>MUBES - Melbourne University Biomedical Engineering Society</title>
+        <meta name="description" content="Melbourne University Biomedical Engineering Society is a student club that aims to connect students with alumni, faculty, industry, and each other." />
+      </Helmet>
+
       <Header/>
       <main>
         <Switch>

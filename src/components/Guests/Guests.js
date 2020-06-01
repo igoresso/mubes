@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Tabletop from 'tabletop';
+import { Helmet } from "react-helmet";
 import { Container, Spinner } from 'react-bootstrap';
 
 import './Guests.scss';
@@ -22,12 +23,13 @@ export default (props) => {
     }
   })
 
-  useEffect(() => {
-    document.title = "MUBES - Event Guests";
-  })
-
   return (
     <Container as="section">
+      <Helmet>
+        <title>MUBES - Event Guests</title>
+        <meta name="description" content="Get to know our event guests!" />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">Event Guests</h1>
       { !props.guests ? (
         <div className="text-center m-5">

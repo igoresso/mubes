@@ -1,12 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
 
 export default () => {
-  useEffect(() => {
-    document.title = "MUBES";
-  })
-
   return (
     <React.Fragment>
       <Jumbotron fluid>

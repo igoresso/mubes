@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Helmet } from "react-helmet";
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 
 export default () => {
-  useEffect(() => {
-    document.title = "MUBES - Contacts";
-  })
-
   return (
     <Container as="section">
+      <Helmet>
+        <title>MUBES - Contacts</title>
+        <meta name="description" content="Do you have any questions? Find the answers you're looking for." />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">Contacts</h1>
       <p className="text-center">Do you have any questions? Please do not hesitate to contact us directly or fill in the form below. Email:&#160;<a href="mailto:info@mubes.club">mubes.unimelb@gmail.com</a></p>
       <Row className="justify-content-md-center">

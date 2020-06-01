@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Recaptcha from 'react-recaptcha';
 import * as Yup from 'yup';
+import { Helmet } from "react-helmet";
 import { Container, Form, Col, Button, Spinner, Alert } from 'react-bootstrap';
 
 import './Membership.scss';
@@ -57,12 +58,13 @@ export default () => {
     })
   }
 
-  useEffect(() => {
-    document.title = "MUBES - Membership";
-  })
-
   return (
     <Container as="section">
+      <Helmet>
+        <title>MUBES - Membership</title>
+        <meta name="description" content="Join the MUBES Society to connect with other students, staff and alumni." />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">Membership</h1>
       <p>
         Join us by filling in the form below! Membership fee is $5 and can be paid by cash at any of our events. Follow us on{' '}

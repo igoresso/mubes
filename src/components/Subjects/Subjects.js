@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Tabletop from 'tabletop';
+import { Helmet } from "react-helmet";
 import { Container, Spinner, Form, InputGroup, ToggleButtonGroup, ToggleButton, Card } from 'react-bootstrap';
 
 import './Subjects.scss';
@@ -41,12 +42,13 @@ export default (props) => {
     }
   })
 
-  useEffect(() => {
-    document.title = "MUBES - Subjects";
-  })
-
   return (
     <Container as="section">
+      <Helmet>
+        <title>MUBES - Subjects</title>
+        <meta name="description" content="MUBES is delighted to present you reviews for Biomedical Engineering major subjects. We hope this information will help you to make an informed choice." />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">Subjects</h1>
       <p>Melbourne University Biomedical Engineering Society is delighted to present you reviews for Biomedical Engineering major subjects. We hope this will help you to make an informed choice. Subject structure including all assessments can be found in the Handbook. If you have any subject specific questions feel free to{' '}
         <Link to="/contacts">contact us</Link> directly.</p>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Tabletop from 'tabletop';
+import { Helmet } from "react-helmet";
 import { Container, Spinner, Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 
 import './Faq.scss'
@@ -38,12 +39,13 @@ export default (props) => {
     }
   })
 
-  useEffect(() => {
-    document.title = "MUBES - FAQ";
-  })
-
   return (
     <Container as="section">
+      <Helmet>
+        <title>MUBES - FAQ</title>
+        <meta name="description" content="Find the answers to frequently asked questions." />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">FAQ &amp; Answers</h1>
       { !props.faq ? (
         <div className="text-center m-5">
