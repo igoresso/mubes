@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Tabletop from 'tabletop';
+import ReactAudioPlayer from 'react-audio-player';
 import { Helmet } from "react-helmet";
 import { Container, Spinner } from 'react-bootstrap';
 
@@ -66,7 +67,13 @@ export default (props) => {
               <h3 className="h5">About Company</h3>
               <p>{ guest.companyinfo }</p>
               { guest.recording &&
-                <span className="text-muted">The recording is available <a rel="noopener noreferrer" href={ guest.recording } target="_blank">here</a>.</span>
+                <React.Fragment>
+                  <h3 className="h6">Event Recording</h3>
+                  <ReactAudioPlayer
+                    src={ guest.recording }
+                    controls
+                  />
+                </React.Fragment>
               }
             </div>
           </li>
