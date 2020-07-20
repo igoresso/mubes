@@ -57,7 +57,7 @@ export default (props) => {
         <Accordion defaultActiveKey="1" className="mb-4">
           { props.faq.map(entry => 
             <Card className="border rounded mb-1" key={ entry.id }>
-              <Card.Header className="py-2">
+              <Card.Header className="p-2 pr-3">
                 <CustomToggle eventKey={ entry.id.toString() }>
                   { entry.question }
                 </CustomToggle> 

@@ -30,7 +30,7 @@ export default (props) => {
       const subjects = data.Subjects.elements;
       const reviews = data.Reviews.elements;
       subjects.forEach(subject =>{
-        subject['reviews'] = reviews.filter(review => review.subjectcode === subject.code);
+        subject['reviews'] = reviews.filter(review => review.subjectcode === subject.code).sort((a, b) => b.year - a.year);
       })
       props.setSubjects(subjects);
     })
@@ -69,7 +69,9 @@ export default (props) => {
               </InputGroup.Prepend>
               <Form.Control as="select" value={ codeFilter } onChange={ onSubjectChange }>
                 <option value="">Select subject</option>
-                { props.subjects.map(subject => <option value={ subject.code } key={ subject.id }>{ `${subject.code} - ${subject.name}` }</option>) }
+                { props.subjects
+                    .filter(subject => subject.reviews.length > 0)
+                    .map(subject => <option value={ subject.code } key={ subject.id }>{ `${subject.code} - ${subject.name}` }</option>) }
               </Form.Control>
             </InputGroup>
           </Form>
@@ -77,7 +79,8 @@ export default (props) => {
             (levelFilter === "all" && codeFilter === "") ||
             (levelFilter === "all" && subject.code === codeFilter) ||
             (codeFilter === "" && subject.level === levelFilter)
-          ).map(subject => 
+          ).filter(subject => subject.reviews.length > 0)
+            .map(subject => 
             <Card className="mb-4" key={ subject.id }>
               <Card.Header>
                 <h2 className="h4 m-0">{ `${subject.code} - ${subject.name}` }</h2>
