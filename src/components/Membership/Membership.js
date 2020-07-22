@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Recaptcha from 'react-recaptcha';
 import * as Yup from 'yup';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 import { Container, Form, Col, Button, Spinner, Alert } from 'react-bootstrap';
 
 import './Membership.scss';
@@ -52,6 +52,7 @@ export default () => {
       setShowAlert(true);
     })
     .catch(error => {
+      actions.setSubmitting(false)
       setAlertVariant("danger");
       setAlertMessage("Oh, no! Something is wrong.");
       setShowAlert(true);
@@ -147,7 +148,7 @@ export default () => {
                   { errors.email }
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group as={Col} md={6} controlId="studentNumber">
+              <Form.Group as={Col} md={3} controlId="studentNumber">
                 <Form.Label>Student number</Form.Label>
                 <Form.Control
                   type="text"
@@ -159,9 +160,7 @@ export default () => {
                   isInvalid={ submitCount>0 && !!errors.studentNumber }
                 />
               </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col} md={6} controlId="course">
+              <Form.Group as={Col} md={3} controlId="course">
                 <Form.Label>Course</Form.Label>
                 <Form.Control
                   type="text"
@@ -298,11 +297,11 @@ export default () => {
             <Recaptcha
               sitekey="6Ldeb9wUAAAAAKDaIIz8AObKkIvDtEY8R4XtvVTW"
               render="explicit"
+              onloadCallback={() => console.log('ReCaptcha is ready!')}
               verifyCallback={ res => setFieldValue('recaptcha', res) }
               expiredCallback={ res => setFieldValue('recaptcha', "") }
-              className="mb-2"
             />
-            <Button type="submit" disabled={ isSubmitting || errors.recaptcha }>
+            <Button type="submit" className="mt-2" disabled={ isSubmitting || errors.recaptcha }>
               { isSubmitting &&
                 <Spinner
                   as="span"
