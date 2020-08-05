@@ -14,7 +14,7 @@ export default (props) => {
       prettyColumnNames: false,
       wanted: ["Guests"] }
     ).then(data => { 
-      props.setGuests(data);
+      props.setGuests(data.reverse());
     })
   }
 
@@ -64,8 +64,12 @@ export default (props) => {
               </h2>
               <span className="d-block text-muted text-center text-md-left mb-3">{ guest.position } at <a rel="noopener noreferrer" href={ guest.url } target="_blank">{ guest.company }</a></span>
               <p>{ guest.bio }</p>
-              <h3 className="h5">About Company</h3>
-              <p>{ guest.companyinfo }</p>
+              { guest.companyinfo &&
+                <React.Fragment>
+                  <h3 className="h5">About Company</h3>
+                  <p>{ guest.companyinfo }</p>
+                </React.Fragment>
+              }
               { guest.recording &&
                 <React.Fragment>
                   <h3 className="h6">Event Recording</h3>
