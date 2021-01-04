@@ -14,11 +14,6 @@ export default () => {
           <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
         </Container>
       </Jumbotron>
-      <Container className="mb-4">
-        <div  className="responsive">
-          <iframe title="People's Choice Award" src="https://www.youtube-nocookie.com/embed/VQKZv3KAAHU?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </Container>
       <section>
         <h2 className="page-title text-center p-2">What can I do after finishing Biomedical Engineering major?</h2>
         <Container>
