@@ -138,7 +138,7 @@ export default () => {
                 <Form.Control
                   type="email"
                   name="email"
-                  placeholder="your@email.com"
+                  placeholder="your@student.unimelb.edu.au"
                   value={ values.email }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
@@ -164,7 +164,7 @@ export default () => {
                 <Form.Label>Course</Form.Label>
                 <Form.Control
                   type="text"
-                  name="course"
+                  name="UoM course"
                   placeholder="MEng (Biomedical)"
                   value={ values.course }
                   onChange={ handleChange }
