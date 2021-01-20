@@ -11,11 +11,29 @@ const schema = Yup.object({
   firstName: Yup.string().required("Please enter your first name"),
   lastName: Yup.string().required("Please enter your last name"),
   email: Yup.string().email("Please enter a valid email").required("Please enter your email"),
-  studentNumber: Yup.number("Please enter a valid student number"),
-  course: Yup.string("Please enter a valid course"),
-  international: Yup.string().required(),
-  graduate: Yup.string().required(),
+  UoMStudent: Yup.string().required(),
+  studentNumber: Yup.number().when('UoMStudent', {
+    is: 'yes',
+    then: Yup.number("Please enter a valid student number").required("Please enter your student number"),
+    otherwise: Yup.number()
+  }),
+  course: Yup.string().when('UoMStudent', {
+    is: 'yes',
+    then: Yup.string("Please enter a valid course").required("Please enter your course name"),
+    otherwise: Yup.string()
+  }),
+  international: Yup.string().when('UoMStudent', {
+    is: 'yes',
+    then: Yup.string().required(),
+    otherwise: Yup.string()
+  }),
+  graduate: Yup.string().when('UoMStudent', {
+    is: 'yes',
+    then: Yup.string().required(),
+    otherwise: Yup.string()
+  }),
   over18: Yup.string().required(),
+  inPerson: Yup.string().required(),
   recaptcha: Yup.string().required()
 });
 
@@ -33,11 +51,13 @@ export default () => {
     formData.set('firstName', values.firstName);
     formData.set('lastName', values.lastName);
     formData.set('email', values.email);
-    formData.set('studentNumber', values.studentNumber);
-    formData.set('course', values.course);
-    formData.set('international', values.international);
-    formData.set('graduate', values.graduate);
+    formData.set('UoMStudent', values.UoMStudent);
+    formData.set('studentNumber', values.UoMStudent === "yes" ? values.studentNumber : "N/A");
+    formData.set('course', values.course === "yes" ? values.studentNumber : "N/A");
+    formData.set('international', values.international === "yes" ? values.studentNumber : "N/A");
+    formData.set('graduate', values.graduate === "yes" ? values.studentNumber : "N/A");
     formData.set('over18', values.over18);
+    formData.set('inPerson', values.inPerson);
     formData.set('recaptcha', values.recaptcha);
 
     const url = "https://script.google.com/macros/s/AKfycbweNVIGc--YLlFpiAe6ySWJJW9IAsFVDX46AlJu6eciXlwtzLC7/exec";
@@ -48,13 +68,13 @@ export default () => {
     .then(response => {
       actions.resetForm();
       setAlertVariant("success");
-      setAlertMessage("The form has been submitted successfully!");
+      setAlertMessage("Welcome to our family!");
       setShowAlert(true);
     })
     .catch(error => {
       actions.setSubmitting(false)
       setAlertVariant("danger");
-      setAlertMessage("Oh, no! Something is wrong.");
+      setAlertMessage("Oh, no! Something went wrong.");
       setShowAlert(true);
     })
   }
@@ -78,6 +98,7 @@ export default () => {
           firstName: "",
           lastName: "",
           email: "",
+          UoMStudent: "",
           studentNumber: "",
           course: "",
           international: "",
@@ -101,7 +122,7 @@ export default () => {
         }) => (
           <Form className="pb-4" noValidate onSubmit={ handleSubmit }>
             <Form.Row>
-              <Form.Group as={Col} md={6} controlId="firstName">
+              <Form.Group as={Col} lg={4} controlId="firstName">
                 <Form.Label>First name</Form.Label>
                 <Form.Control
                   type="text"
@@ -116,7 +137,7 @@ export default () => {
                   { errors.firstName }
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group as={Col} md={6} controlId="lastName">
+              <Form.Group as={Col} lg={4} controlId="lastName">
                 <Form.Label>Last name</Form.Label>
                 <Form.Control
                   type="text"
@@ -131,14 +152,12 @@ export default () => {
                   { errors.lastName }
                 </Form.Control.Feedback>
               </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col} md={6} controlId="email">
+              <Form.Group as={Col} lg={4} controlId="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
-                  placeholder="your@email.com"
+                  placeholder="email@student.unimelb.edu.au"
                   value={ values.email }
                   onChange={ handleChange }
                   onBlur={ handleBlur }
@@ -148,121 +167,150 @@ export default () => {
                   { errors.email }
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group as={Col} md={3} controlId="studentNumber">
-                <Form.Label>Student number</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="studentNumber"
-                  placeholder="#######"
-                  value={ values.studentNumber }
-                  onChange={ handleChange }
-                  onBlur={ handleBlur }
-                  isInvalid={ submitCount>0 && !!errors.studentNumber }
-                />
-              </Form.Group>
-              <Form.Group as={Col} md={3} controlId="course">
-                <Form.Label>Course</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="course"
-                  placeholder="MEng (Biomedical)"
-                  value={ values.course }
-                  onChange={ handleChange }
-                  onBlur={ handleBlur }
-                  isInvalid={ submitCount>0 && !!errors.studentNumber }
-                />
-              </Form.Group>
             </Form.Row>
-            <Form.Group>
-              <span>Are you an international student?</span>
-              <Form.Check 
-                custom
-                type="radio"
-                name="international"
-                value={ values.international }
-                label="Yes"
-                id="international"
-                checked={ values.international === 'yes' }
-                onChange={() => {
-                  setFieldValue('international', 'yes')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.international }
-              />
-              <Form.Check 
-                custom
-                type="radio"
-                name="international"
-                value={ values.international }
-                label="No"
-                id="domestic"
-                checked={ values.international === 'no' }
-                onChange={() => {
-                  setFieldValue('international', 'no')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.international }
-              />
-              <Form.Check 
-                custom
-                type="radio"
-                name="international"
-                value={ values.international }
-                label="N/A"
-                id="notApplicableInternational"
-                checked={ values.international === 'N/A' }
-                onChange={() => {
-                  setFieldValue('international', 'N/A')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.international }
-              />
-            </Form.Group>
-            <Form.Group>
-              <span>Are you a graduate student?</span>
-              <Form.Check
-                custom
-                type="radio"
-                name="graduate"
-                value={ values.graduate }
-                label="Yes"
-                id="postgraduate"
-                checked={ values.graduate === 'yes' }
-                onChange={() => {
-                  setFieldValue('graduate', 'yes')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.graduate }
-              />
-              <Form.Check
-                custom
-                type="radio"
-                name="graduate"
-                value={ values.graduate }
-                label="No"
-                id="undergraduate"
-                checked={ values.graduate === 'no' }
-                onChange={() => {
-                  setFieldValue('graduate', 'no')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.graduate }
-              />
-              <Form.Check
-                custom
-                type="radio"
-                name="graduate"
-                value={ values.graduate }
-                label="N/A"
-                id="notApplicableGraduate"
-                checked={ values.graduate === 'N/A' }
-                onChange={() => {
-                  setFieldValue('graduate', 'N/A')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.graduate }
-              />
-            </Form.Group>
+            <Form.Row>
+              <Col lg={4}>
+                <Form.Group>
+                  <span>UoM student?</span>
+                  <Form.Check
+                    custom
+                    type="radio"
+                    name="UoMStudent"
+                    value={ values.UoMStudent }
+                    label="Yes"
+                    id="UoMStudentYes"
+                    checked={ values.UoMStudent === 'yes' }
+                    onChange={() => { 
+                      setFieldValue('UoMStudent', 'yes')
+                    }}
+                    onBlur={ handleBlur }
+                    isInvalid={ submitCount>0 && !!errors.over18 }
+                  />
+                  <Form.Check
+                    custom
+                    type="radio"
+                    name="UoMStudent"
+                    value={ values.UoMStudent }
+                    label="No"
+                    id="UoMStudentNo"
+                    checked={ values.UoMStudent === 'no' }
+                    onChange={() => {
+                      setFieldValue('UoMStudent', 'no')
+                      setFieldValue('studentNumber', '')
+                      setFieldValue('course', '')
+                      setFieldValue('international', '')
+                      setFieldValue('graduate', '')
+                    }}
+                    onBlur={ handleBlur }
+                    isInvalid={ submitCount>0 && !!errors.over18 }
+                  />
+                </Form.Group>
+              </Col>
+              <Col lg={8}>
+                <Form.Row>
+                  <Form.Group as={Col} lg={6} controlId="studentNumber">
+                    <Form.Label>Student number</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="studentNumber"
+                      placeholder="#######"
+                      value={ values.studentNumber }
+                      onChange={ handleChange }
+                      onBlur={ handleBlur }
+                      isInvalid={ submitCount>0 && !!errors.studentNumber }
+                      disabled={ values.UoMStudent !== 'yes' }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      { errors.studentNumber }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group as={Col} lg={6} controlId="course">
+                    <Form.Label>UoM Course</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="course"
+                      placeholder="MEng (Biomedical)"
+                      value={ values.course }
+                      onChange={ handleChange }
+                      onBlur={ handleBlur }
+                      isInvalid={ submitCount>0 && !!errors.studentNumber }
+                      disabled={ values.UoMStudent !== 'yes' }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      { errors.course }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group as={Col} lg={6}>
+                    <span>Are you an international student?</span>
+                    <Form.Check 
+                      custom
+                      type="radio"
+                      name="international"
+                      value={ values.international }
+                      label="Yes"
+                      id="international"
+                      checked={ values.international === 'yes' }
+                      onChange={() => {
+                        setFieldValue('international', 'yes')
+                      }}
+                      onBlur={ handleBlur }
+                      isInvalid={ submitCount>0 && !!errors.international }
+                      disabled={ values.UoMStudent !== 'yes' }
+                    />
+                    <Form.Check 
+                      custom
+                      type="radio"
+                      name="international"
+                      value={ values.international }
+                      label="No"
+                      id="domestic"
+                      checked={ values.international === 'no' }
+                      onChange={() => {
+                        setFieldValue('international', 'no')
+                      }}
+                      onBlur={ handleBlur }
+                      isInvalid={ submitCount>0 && !!errors.international }
+                      disabled={ values.UoMStudent !== 'yes' }
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} lg={6}>
+                    <span>Are you a graduate student?</span>
+                    <Form.Check
+                      custom
+                      type="radio"
+                      name="graduate"
+                      value={ values.graduate }
+                      label="Yes"
+                      id="postgraduate"
+                      checked={ values.graduate === 'yes' }
+                      onChange={() => {
+                        setFieldValue('graduate', 'yes')
+                      }}
+                      onBlur={ handleBlur }
+                      isInvalid={ submitCount>0 && !!errors.graduate }
+                      disabled={ values.UoMStudent !== 'yes' }
+                    />
+                    <Form.Check
+                      custom
+                      type="radio"
+                      name="graduate"
+                      value={ values.graduate }
+                      label="No"
+                      id="undergraduate"
+                      checked={ values.graduate === 'no' }
+                      onChange={() => {
+                        setFieldValue('graduate', 'no')
+                      }}
+                      onBlur={ handleBlur }
+                      isInvalid={ submitCount>0 && !!errors.graduate }
+                      disabled={ values.UoMStudent !== 'yes' }
+                    />
+                  </Form.Group>
+                </Form.Row>
+              </Col>
+            </Form.Row>
             <Form.Group>
               <span>Are you over 18?</span>
               <Form.Check
@@ -294,6 +342,37 @@ export default () => {
                 isInvalid={ submitCount>0 && !!errors.over18 }
               />
             </Form.Group>
+            <Form.Group>
+              <span>Are you able to attend in-person events?</span>
+              <Form.Check
+                custom
+                type="radio"
+                name="inPerson"
+                value={ values.inPerson }
+                label="Yes"
+                id="inPersonAvailable"
+                checked={ values.inPerson === 'yes' }
+                onChange={() => { 
+                  setFieldValue('inPerson', 'yes')
+                }}
+                onBlur={ handleBlur }
+                isInvalid={ submitCount>0 && !!errors.over18 }
+              />
+              <Form.Check
+                custom
+                type="radio"
+                name="inPerson"
+                value={ values.inPerson }
+                label="No"
+                id="inPersonUnavailable"
+                checked={ values.inPerson === 'no' }
+                onChange={() => {
+                  setFieldValue('inPerson', 'no')
+                }}
+                onBlur={ handleBlur }
+                isInvalid={ submitCount>0 && !!errors.over18 }
+              />
+            </Form.Group>
             <Recaptcha
               sitekey="6Ldeb9wUAAAAAKDaIIz8AObKkIvDtEY8R4XtvVTW"
               render="explicit"
@@ -312,7 +391,7 @@ export default () => {
                   aria-hidden="true"
                 />
               }
-              { isSubmitting ? "Submitting..." : "Submit"}
+              { isSubmitting ? "Submitting..." : "Submit" }
             </Button>
           </Form>
         )}
