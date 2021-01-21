@@ -53,9 +53,9 @@ export default () => {
     formData.set('email', values.email);
     formData.set('UoMStudent', values.UoMStudent);
     formData.set('studentNumber', values.UoMStudent === "yes" ? values.studentNumber : "N/A");
-    formData.set('course', values.course === "yes" ? values.studentNumber : "N/A");
-    formData.set('international', values.international === "yes" ? values.studentNumber : "N/A");
-    formData.set('graduate', values.graduate === "yes" ? values.studentNumber : "N/A");
+    formData.set('course', values.UoMStudent === "yes" ? values.course : "N/A");
+    formData.set('international', values.UoMStudent === "yes" ? values.international : "N/A");
+    formData.set('graduate', values.UoMStudent === "yes" ? values.graduate : "N/A");
     formData.set('over18', values.over18);
     formData.set('inPerson', values.inPerson);
     formData.set('recaptcha', values.recaptcha);
