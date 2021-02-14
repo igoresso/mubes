@@ -26,6 +26,9 @@ export default () =>
                 <Nav.Link as={NavLink} exact to="/committee" activeClassName="active">Committee</Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
+                <Nav.Link as={NavLink} exact to="/events" activeClassName="active">Events</Nav.Link>
+              </Nav.Item>
+              <Nav.Item as="li">
                 <Nav.Link as={NavLink} exact to="/contacts" activeClassName="active">Contacts</Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
