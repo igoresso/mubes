@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { Header, Footer, Main, Membership, Committee, Contacts, Subjects, Faq, Guests } from './components';
+import { Header, Footer, Main, Membership, Committee, Events, Contacts, Subjects, Faq, Guests } from './components';
 
 import './App.scss';
 
@@ -29,6 +29,9 @@ export default () => {
           </Route>
           <Route exact path="/committee">
             <Committee committee={ committee } setCommittee={ setCommittee } />
+          </Route>
+          <Route exact path="/events">
+            <Events />
           </Route>
           <Route exact path="/contacts">
             <Contacts />

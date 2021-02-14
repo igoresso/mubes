@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Formik } from 'formik';
-import Recaptcha from 'react-recaptcha';
+//import { Formik } from 'formik';
+//import Recaptcha from 'react-recaptcha';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Container, Form, Col, Button, Spinner, Alert } from 'react-bootstrap';
+import Carousel from 'react-bootstrap/Carousel';
+import { Container, Form, Col, Row, Button, Spinner, Alert, Jumbotron } from 'react-bootstrap';
 
 import './Membership.scss';
 
@@ -20,7 +22,7 @@ const schema = Yup.object({
 });
 
 export default () => {
-  const [showAlert, setShowAlert] = useState(false);
+  /*const [showAlert, setShowAlert] = useState(false);
   const [alertVariant, setAlertVariant] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -57,7 +59,7 @@ export default () => {
       setAlertMessage("Oh, no! Something is wrong.");
       setShowAlert(true);
     })
-  }
+  }*/
 
   return (
     <Container as="section">
@@ -67,13 +69,73 @@ export default () => {
       </Helmet>
 
       <h1 className="page-title mb-5 pt-2 text-center">Membership</h1>
-      <p>
-        Join us by filling in the form below! Membership fee is $5 and can be paid by cash at any of our events. Follow us on{' '}
+
+      <h1 className = "text-center pb-3">
+        Want to get involved?
+      </h1>
+
+      <Carousel className = "pb-5">
+        <Carousel.Item interval={1000}>
+          <img
+            className="d-block w-100"
+            src="img/BBQ.jpg"
+            alt="First slide"
+          />
+          <Carousel.Caption className = "justify-right">
+            <h2 className = "display-4"><b>Start of Semester BBQ</b></h2>
+            <h5><b>Socialize with like-minded people</b></h5>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item interval={500}>
+            <img
+              className="d-block w-100"
+              src="img/trivia.jpg"
+              alt="Third slide"
+            />
+          <Carousel.Caption>
+            <h2 className = "display-4"><b>Join us on our Trivia Night</b></h2>
+            <h5><b>Win amazing prizes</b></h5>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="img/lecture.jpg"
+            alt="Third slide"
+          />
+          <Carousel.Caption>
+            <h2 className = "display-4"><b>Take part in our Makerthon</b></h2>
+            <h5><b>Challenge yourselves</b></h5>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+      <h4 className = "text-left">
+        By signing up as a member, you will:
+      </h4>
+      <ul class="list-group list-group-flush" className="text-left">
+        <li class="list-group-item borderless">
+          <h5>☑ Be notified of <Link to='/events'> upcoming</Link> events (like free BBQ!)</h5>
+        </li>
+        <li class="list-group-item borderless">
+          <h5>☑ Gain access to our fortnightly newsletters</h5>
+        </li>
+        <li class="list-group-item borderless">
+          <h5>☑ Be part of a wholesome community</h5>
+        </li>
+      </ul>
+
+      <h4 className = "text-center pb-5 pt-3">
+        Join us by filling in{' '}
+        <a rel="noopener noreferrer" href="https://mubes.getqpay.com/" target="_blank">this</a>{' '}form! 
+        Membership fee is $5 and can only be paid through our QPay form for now. Follow us on{' '}
         <a rel="noopener noreferrer" href="https://www.facebook.com/groups/mubes.unimelb/" target="_blank">Facebook</a>,{' '}
         <a rel="noopener noreferrer" href="https://www.linkedin.com/company/mu-bmes/about/" target="_blank">LinkedIn</a> and{' '}
         <a rel="noopener noreferrer" href="https://www.instagram.com/mubes_unimelb/" target="_blank">Instagram</a>.
-      </p>
-      <Formik
+      </h4>
+
+
+      {/*<Formik
         initialValues={{
           firstName: "",
           lastName: "",
@@ -316,12 +378,12 @@ export default () => {
             </Button>
           </Form>
         )}
-      </Formik>
-      { showAlert &&
+            </Formik>*/}
+      {/*{ showAlert &&
         <Alert variant={ alertVariant } onClose={ () => setShowAlert(false) } dismissible>
           { alertMessage }
         </Alert>
-      }
+      }*/}
     </Container>
   )
 }
