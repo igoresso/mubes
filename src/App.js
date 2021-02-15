@@ -10,6 +10,8 @@ export default () => {
   const [subjects, setSubjects] = useState(null);
   const [faq, setFaq] = useState(null);
   const [guests, setGuests] = useState(null);
+  const [events, setEvents] = useState(null);
+
 
   return (
     <Router>
@@ -31,7 +33,7 @@ export default () => {
             <Committee committee={ committee } setCommittee={ setCommittee } />
           </Route>
           <Route exact path="/events">
-            <Events />
+            <Events events={ events } setEvents={ setEvents }/>
           </Route>
           <Route exact path="/contacts">
             <Contacts />

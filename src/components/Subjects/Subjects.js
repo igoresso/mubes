@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
 import Tabletop from 'tabletop';
 import { Helmet } from "react-helmet";
@@ -6,7 +8,9 @@ import { Container, Spinner, Form, InputGroup, ToggleButtonGroup, ToggleButton, 
 
 import './Subjects.scss';
 
-export default (props) => {
+const Subjects = props => {
+  const {subjects, setSubjects} = props;
+
   const [levelFilter, setLevelFilter] = useState("all")
   const [codeFilter, setCodeFilter] = useState("");
 
@@ -32,12 +36,12 @@ export default (props) => {
       subjects.forEach(subject =>{
         subject['reviews'] = reviews.filter(review => review.subjectcode === subject.code).sort((a, b) => b.year - a.year);
       })
-      props.setSubjects(subjects);
+      setSubjects(subjects);
     })
   }
 
   useEffect(() => {
-    if (!props.subjects) {
+    if (subjects === null) {
       fetchSubjects();
     }
   })
@@ -52,7 +56,7 @@ export default (props) => {
       <h1 className="page-title mb-5 pt-2 text-center">Subjects</h1>
       <p>Melbourne University Biomedical Engineering Society is delighted to present you reviews for Biomedical Engineering major subjects. We hope this will help you to make an informed choice. Subject structure including all assessments can be found in the Handbook. If you have any subject specific questions feel free to{' '}
         <Link to="/contacts">contact us</Link> directly.</p>
-      { !props.subjects ? (
+      { subjects === null ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">
             <span className="sr-only">Loading...</span>
@@ -69,13 +73,13 @@ export default (props) => {
               </InputGroup.Prepend>
               <Form.Control as="select" value={ codeFilter } onChange={ onSubjectChange }>
                 <option value="">Select subject</option>
-                { props.subjects
+                { subjects
                     .filter(subject => subject.reviews.length > 0)
                     .map(subject => <option value={ subject.code } key={ subject.id }>{ `${subject.code} - ${subject.name}` }</option>) }
               </Form.Control>
             </InputGroup>
           </Form>
-          { props.subjects.filter(subject => 
+          { subjects.filter(subject => 
             (levelFilter === "all" && codeFilter === "") ||
             (levelFilter === "all" && subject.code === codeFilter) ||
             (codeFilter === "" && subject.level === levelFilter)
@@ -90,7 +94,7 @@ export default (props) => {
                 <h3 className="h5">Reviews</h3>
                 { subject.reviews.map(review =>
                   <blockquote className="blockquote mb-5" key={ review.id }>
-                    <div dangerouslySetInnerHTML={{ __html: review.text }} />
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.text) }} />
                     <footer className="blockquote-footer">
                       <cite title={ review.author }>{ review.author } ({ review.year })</cite>
                     </footer>
@@ -104,4 +108,10 @@ export default (props) => {
     </Container>
   );
 }
-  
+
+Subjects.propTypes = {
+  subjects: PropTypes.array,
+  setSubjects: PropTypes.func
+}
+
+export default Subjects;

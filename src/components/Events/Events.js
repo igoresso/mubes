@@ -1,119 +1,98 @@
-import React from 'react';
-import Tab from 'react-bootstrap/Tab';
-import Nav from 'react-bootstrap/Nav';
-import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Tabletop from 'tabletop';
+import { Helmet } from "react-helmet";
+import { Tab, Nav, Container, Row, Col, Card, Spinner } from 'react-bootstrap';
 
-export default () => {
+const Events = props => {
+  const {events, setEvents} = props;
+  const fetchEvents = () => {
+    Tabletop.init( {
+      key: 'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
+      simpleSheet: true,
+      prettyColumnNames: false,
+      wanted: ["Events"] }
+    ).then(data => {
+      setEvents(data);
+    })
+  }
+
+  useEffect(() => {
+    if (events === null) {
+      fetchEvents();
+    }
+  })
+
   return (
-    <Container as = "section">
+    <Container as="section">
+      <Helmet>
+        <title>MUBES - Events</title>
+        <meta name="description" content="Meet the committee!" />
+      </Helmet>
+
       <h1 className="page-title mb-5 pt-2 text-center">Events</h1>
 
-      <Tab.Container id="left-tabs" defaultActiveKey="first">
-        <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="first">Peer Mentoring</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="second">Trivia Night</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="third">Makerthon</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="fourth">Networking Night</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="fifth">Discord Game Night</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Col>
-          <Col sm={9}>
-            <Tab.Content>
-              <Tab.Pane eventKey="first">
-                <Row>
-                  <Col md={4} className="p-5 p-md-3 text-center">
-                    <img src="img/mentor.svg" alt="Rocket" className = "pl-4 h-100 w-100"/>
-                  </Col>
-                  <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-                    <h5 className = "text-center">
-                      This year long program gives you the opportunity to connect with industry mentors
-                      and mentor undergraduate students interested in biomedical engineering!
-                      <br></br><br></br>
-                      More coming soon!
-                    </h5>
-                  </Col>
-                </Row>
-              </Tab.Pane>
-              <Tab.Pane eventKey="second">
-                <Row>
-                  <Col md={4} className="p-5 p-md-3 text-center">
-                    <img src="img/quiz.png" alt="Rocket" className = "pl-4 h-100 w-100"/>
-                  </Col>
-                  <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-                    <h5 className = "text-center">
-                      "Who is the first president of our society?"
-                      <br></br>
-                      is one of the many questions you'll need to know the answer to for our annual trivia night 
-                      where you can form teams with your friends (or make new ones!) and compete for some fun prizes.<br></br>
-                      <br></br>
-                      Stay tuned for event dates!
-                    </h5>
-                  </Col>
-                </Row>
-              </Tab.Pane>
-              <Tab.Pane eventKey="third">
-                <Row>
-                  <Col md={4} className="p-5 p-md-3 text-center">
-                    <img src="img/tools.svg" alt="Rocket" className = "pl-4 h-100 w-100"/>
-                  </Col>
-                  <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-                    <h5 className = "text-center">
-                      Always wanted to participate in a hackathon but don't know how to code?
-                      Always wanted to get involved in a case competition specifically for biomedical technologies?
-                      The MUBES Makerthon is for you!<br></br>
-                      <br></br>
-                      Stay tuned for more details!
-                    </h5>
-                  </Col>
-                </Row>
-              </Tab.Pane>
-              <Tab.Pane eventKey="fourth">
-                <Row>
-                  <Col md={4} className="p-5 p-md-3 text-center">
-                    <img src="img/network.png" alt="Rocket" className = "pl-4 h-100 w-100"/>
-                  </Col>
-                  <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-                    <h5 className = "text-center">
-                      Our annual networking night!<br></br>
-                      Join this to connect with industry within the biomedical engineering sphere
-                      and practise your networking skills!
-                      <br></br><br></br>
-                      Coming soon!
-                    </h5>
-                  </Col>
-                </Row>
-              </Tab.Pane>
-              <Tab.Pane eventKey="fifth">
-                <Row>
-                  <Col md={4} className="p-5 p-md-3 text-center">
-                    <img src="img/games.svg" alt="Rocket" className = "pl-4 h-100 w-100"/>
-                  </Col>
-                  <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-                    <h5 className = "text-center">
-                      Alright, not all of us are in Melbourne and we have indoor maximum capacities.
-                      So what  better way to make friends than to have fun game nights?
-                      <br></br><br></br>
-                      More to come!
-                    </h5>
-                  </Col>
-                </Row>
-              </Tab.Pane>
-            </Tab.Content>
-          </Col>
-        </Row> 
-      </Tab.Container>
+      { events === null ? (
+        <div className="text-center m-5">
+          <Spinner animation="grow" role="status" variant="primary">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <Tab.Container id="event-tabs" defaultActiveKey="1">
+          <Row>
+            <Col lg={3} className="mb-4">
+              <Nav variant="pills" className="flex-column">
+                { events.map(event =>
+                  <Nav.Item key={event.id}>
+                    <Nav.Link eventKey={event.id}>{event.title}</Nav.Link>
+                  </Nav.Item>
+                )}
+              </Nav>
+            </Col>
+            <Col lg={9}>
+              <Tab.Content>
+                { events.map(event =>
+                  <Tab.Pane key={event.id} eventKey={event.id}>
+                    <Card>
+                      <Row>
+                        <Col md={4}>
+                          <img src={event.img} alt={event.title} className="m-4"/>
+                        </Col>
+                        <Col md={8}>
+                          <Card.Body>
+                            <Card.Title as="h2" className="h5">{event.title}</Card.Title>
+                            {
+                              event.time ?
+                                <Card.Subtitle className="mb-2">{event.time}</Card.Subtitle>
+                                :
+                                ''
+                            }
+                            <Card.Text>{event.description}</Card.Text>
+                            {
+                              event.link ?
+                                <Card.Link href={event.link} className="btn btn-primary">Learn More</Card.Link>
+                                :
+                                <Card.Text><em>Stay tuned for more info!</em></Card.Text>
+                            }
+                          </Card.Body>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Tab.Pane>
+                )}
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+      )}
     </Container>
   )
 }
+
+Events.propTypes = {
+  events: PropTypes.array,
+  setEvents: PropTypes.func
+}
+
+export default Events;

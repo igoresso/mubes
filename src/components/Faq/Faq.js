@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import DOMPurify from "dompurify";
 import Tabletop from 'tabletop';
 import { Helmet } from "react-helmet";
 import { Container, Spinner, Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 
 import './Faq.scss'
 
-export default (props) => {
+const Faq = props => {
+  const {faq, setFaq} = props;
   const [panelIndex, setPanelIndex] = useState("1");
 
   const CustomToggle = ({ children, eventKey }) => {
@@ -29,12 +32,12 @@ export default (props) => {
       prettyColumnNames: false,
       wanted: ["FAQ"] }
     ).then(data => { 
-      props.setFaq(data);
+      setFaq(data);
     })
   }
 
   useEffect(() => {
-    if (!props.faq) {
+    if (faq === null) {
       fetchFaq();
     }
   })
@@ -47,7 +50,7 @@ export default (props) => {
       </Helmet>
 
       <h1 className="page-title mb-5 pt-2 text-center">FAQ &amp; Answers</h1>
-      { !props.faq ? (
+      { faq === null ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">
             <span className="sr-only">Loading...</span>
@@ -55,7 +58,7 @@ export default (props) => {
         </div>
       ) : (
         <Accordion defaultActiveKey="1" className="mb-4">
-          { props.faq.map(entry => 
+          { faq.map(entry => 
             <Card className="border rounded mb-1" key={ entry.id }>
               <Card.Header className="p-2 pr-3">
                 <CustomToggle eventKey={ entry.id.toString() }>
@@ -63,7 +66,7 @@ export default (props) => {
                 </CustomToggle> 
               </Card.Header>
               <Accordion.Collapse eventKey={entry.id.toString()}>
-                <Card.Body dangerouslySetInnerHTML={{ __html: entry.answer }} />
+                <Card.Body dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(entry.answer) }} />
               </Accordion.Collapse>
           </Card>
           )}
@@ -72,4 +75,10 @@ export default (props) => {
     </Container>
   );
 }
-  
+
+Faq.propTypes = {
+  faq: PropTypes.array,
+  setFaq: PropTypes.func
+}
+
+export default Faq;

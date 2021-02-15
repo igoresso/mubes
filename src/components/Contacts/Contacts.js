@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-//import Recaptcha from 'react-recaptcha';
 import * as Yup from 'yup';
 import { Helmet } from "react-helmet";
 import { Container, Form, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';

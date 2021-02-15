@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Tabletop from 'tabletop';
 import { Helmet } from "react-helmet";
 import { Container, Spinner } from 'react-bootstrap';
 
 import './Committee.scss';
 
-export default (props) => {
+const Committee = props => {
+  const {committee, setCommittee} = props;
   const fetchCommittee = () => {
     Tabletop.init( {
       key: 'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
@@ -13,12 +15,12 @@ export default (props) => {
       prettyColumnNames: false,
       wanted: ["Committee"] }
     ).then(data => { 
-      props.setCommittee(data);
+      setCommittee(data);
     })
   }
 
   useEffect(() => {
-    if (!props.committee) {
+    if (committee === null) {
       fetchCommittee();
     }
   })
@@ -31,7 +33,8 @@ export default (props) => {
       </Helmet>
 
       <h1 className="page-title mb-5 pt-2 text-center">Committee</h1>
-      { !props.committee ? (
+      
+      { committee === null ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">
             <span className="sr-only">Loading...</span>
@@ -39,7 +42,7 @@ export default (props) => {
         </div>
       ) : (
         <ul className="committee list-unstyled d-sm-flex flex-wrap justify-content-between">
-        { props.committee.map(member =>
+        { committee.map(member =>
           <li className="text-center mb-4 mb-sm-5 mx-auto" key={ member.id.toString() }>
             <img
               src={ member.img ? member.img : "img/male.png" }
@@ -57,4 +60,11 @@ export default (props) => {
     </Container>
   );
 }
+
+Committee.propTypes = {
+  committee: PropTypes.array,
+  setCommittee: PropTypes.func
+}
+
+export default Committee;
   

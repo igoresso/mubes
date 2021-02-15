@@ -1,19 +1,87 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
+import { Helmet } from "react-helmet";
+import { Carousel, Container, Row, Col, Card } from 'react-bootstrap';
 
 import './Main.scss';
 
 export default () => {
   return (
     <React.Fragment>
-      <Jumbotron fluid>
-        <Container>
-          <h1 className="display-4">Welcome to the Melbourne University Biomedical Engineering Society!</h1>
-          <p className="lead">We encourage and support Biomedical Engineering students and those interested in the field</p>
-          <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
-        </Container>
-      </Jumbotron>
+      <Helmet>
+        <title>MUBES - Melbourne University Biomedical Engineering Society</title>
+        <meta name="description" content="We encourage and support Biomedical Engineering students and those interested in the field" />
+      </Helmet>
+
+      <Carousel
+        className="mb-4"
+        indicators={false}
+      >
+        <Carousel.Item interval={5000}>
+          <img
+            className="d-block w-100"
+            src="img/engineering.jpg"
+            alt="Welcome slide"
+          />
+          <Carousel.Caption className="text-left">
+            <Card className="carousel-card">
+              <Card.Body>
+                <Card.Title as="h1">Welcome to the Melbourne University Biomedical Engineering Society!</Card.Title>
+                <Card.Text className="lead mb-6">We encourage and support Biomedical Engineering students and those interested in the field</Card.Text>
+                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+              </Card.Body>
+            </Card>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item interval={3000}>
+          <img
+            className="d-block w-100"
+            src="img/bbq.jpg"
+            alt="BBQ slide"
+          />
+          <Carousel.Caption className="text-left">
+            <Card className="carousel-card">
+              <Card.Body>
+                <Card.Title as="h2" className="h1">Start/End of Semester BBQ</Card.Title>
+                <Card.Text className="lead mb-6">Socialize with like-minded people</Card.Text>
+                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+              </Card.Body>
+            </Card>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item interval={3000}>
+            <img
+              className="d-block w-100"
+              src="img/trivia.jpg"
+              alt="Trivia slide"
+            />
+          <Carousel.Caption className="text-left">
+            <Card className="carousel-card">
+              <Card.Body className="card-body">
+                <Card.Title as="h2" className="h1">Join us on our Trivia Night</Card.Title>
+                <Card.Text className="lead mb-6">Win amazing prizes</Card.Text>
+                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+              </Card.Body>
+            </Card>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item interval={3000}>
+          <img
+            className="d-block w-100"
+            src="img/lecture.jpg"
+            alt="Lecture slide"
+          />
+          <Carousel.Caption className="text-left">
+            <Card className="carousel-card">
+              <Card.Body className="card-body">
+                <Card.Title as="h2" className="h1">Take part in our Makerthon</Card.Title>
+                <Card.Text className="lead mb-6">Challenge yourselves</Card.Text>
+                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+              </Card.Body>
+            </Card>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
       <section>
         <h2 className="page-title text-center p-2">What can I do after finishing Biomedical Engineering major?</h2>
         <Container>

@@ -1,86 +1,9 @@
-import React, { useState } from 'react';
-//import { Formik } from 'formik';
-//import Recaptcha from 'react-recaptcha';
-import * as Yup from 'yup';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Carousel from 'react-bootstrap/Carousel';
-import { Container, Form, Col, Row, Button, Spinner, Alert, Jumbotron } from 'react-bootstrap';
-
-import './Membership.scss';
-
-const schema = Yup.object({
-  firstName: Yup.string().required("Please enter your first name"),
-  lastName: Yup.string().required("Please enter your last name"),
-  email: Yup.string().email("Please enter a valid email").required("Please enter your email"),
-  UoMStudent: Yup.string().required(),
-  studentNumber: Yup.number().when('UoMStudent', {
-    is: 'yes',
-    then: Yup.number("Please enter a valid student number").required("Please enter your student number"),
-    otherwise: Yup.number()
-  }),
-  course: Yup.string().when('UoMStudent', {
-    is: 'yes',
-    then: Yup.string("Please enter a valid course").required("Please enter your course name"),
-    otherwise: Yup.string()
-  }),
-  international: Yup.string().when('UoMStudent', {
-    is: 'yes',
-    then: Yup.string().required(),
-    otherwise: Yup.string()
-  }),
-  graduate: Yup.string().when('UoMStudent', {
-    is: 'yes',
-    then: Yup.string().required(),
-    otherwise: Yup.string()
-  }),
-  over18: Yup.string().required(),
-  inPerson: Yup.string().required(),
-  recaptcha: Yup.string().required()
-});
+import { Container } from 'react-bootstrap';
 
 export default () => {
-  /*const [showAlert, setShowAlert] = useState(false);
-  const [alertVariant, setAlertVariant] = useState("");
-  const [alertMessage, setAlertMessage] = useState("");
-
-  const handleSubmit = (values, actions) => {
-    const date = new Date();
-    const utcDate = date.toUTCString();
-
-    const formData = new FormData();
-    formData.set('timeStamp', utcDate);
-    formData.set('firstName', values.firstName);
-    formData.set('lastName', values.lastName);
-    formData.set('email', values.email);
-    formData.set('UoMStudent', values.UoMStudent);
-    formData.set('studentNumber', values.UoMStudent === "yes" ? values.studentNumber : "N/A");
-    formData.set('course', values.UoMStudent === "yes" ? values.course : "N/A");
-    formData.set('international', values.UoMStudent === "yes" ? values.international : "N/A");
-    formData.set('graduate', values.UoMStudent === "yes" ? values.graduate : "N/A");
-    formData.set('over18', values.over18);
-    formData.set('inPerson', values.inPerson);
-    formData.set('recaptcha', values.recaptcha);
-
-    const url = "https://script.google.com/macros/s/AKfycbweNVIGc--YLlFpiAe6ySWJJW9IAsFVDX46AlJu6eciXlwtzLC7/exec";
-    fetch(url, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      actions.resetForm();
-      setAlertVariant("success");
-      setAlertMessage("Welcome to our family!");
-      setShowAlert(true);
-    })
-    .catch(error => {
-      actions.setSubmitting(false)
-      setAlertVariant("danger");
-      setAlertMessage("Oh, no! Something went wrong.");
-      setShowAlert(true);
-    })
-  }*/
-
   return (
     <Container as="section">
       <Helmet>
@@ -90,379 +13,50 @@ export default () => {
 
       <h1 className="page-title mb-5 pt-2 text-center">Membership</h1>
 
-      <h1 className = "text-center pb-3">
-        Want to get involved?
-      </h1>
-
-      <Carousel className = "pb-5">
-        <Carousel.Item interval={1000}>
-          <img
-            className="d-block w-100"
-            src="img/BBQ.jpg"
-            alt="First slide"
-          />
-          <Carousel.Caption className = "justify-right">
-            <h2 className = "display-4"><b>Start of Semester BBQ</b></h2>
-            <h5><b>Socialize with like-minded people</b></h5>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item interval={500}>
-            <img
-              className="d-block w-100"
-              src="img/trivia.jpg"
-              alt="Third slide"
-            />
-          <Carousel.Caption>
-            <h2 className = "display-4"><b>Join us on our Trivia Night</b></h2>
-            <h5><b>Win amazing prizes</b></h5>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="img/lecture.jpg"
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h2 className = "display-4"><b>Take part in our Makerthon</b></h2>
-            <h5><b>Challenge yourselves</b></h5>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-
-      <h4 className = "text-left">
-        By signing up as a member, you will:
-      </h4>
-      <ul class="list-group list-group-flush" className="text-left">
-        <li class="list-group-item borderless">
-          <h5>☑ Be notified of <Link to='/events'> upcoming</Link> events (like free BBQ!)</h5>
-        </li>
-        <li class="list-group-item borderless">
-          <h5>☑ Gain access to our fortnightly newsletters</h5>
-        </li>
-        <li class="list-group-item borderless">
-          <h5>☑ Be part of a wholesome community</h5>
-        </li>
-      </ul>
-
-      <h4 className = "text-center pb-5 pt-3">
-        Join us by filling in{' '}
-        <a rel="noopener noreferrer" href="https://mubes.getqpay.com/" target="_blank">this</a>{' '}form! 
-        Membership fee is $5 and can only be paid through our QPay form for now. Follow us on{' '}
+      <p className="lead">
+        Join us by filling in < a rel="noopener noreferrer" href="https://mubes.getqpay.com/" target="_blank">this</a> form! Membership fee is $5 and can only be paid through our QPay form for now. Follow us on{' '}
         <a rel="noopener noreferrer" href="https://www.facebook.com/groups/mubes.unimelb/" target="_blank">Facebook</a>,{' '}
         <a rel="noopener noreferrer" href="https://www.linkedin.com/company/mu-bmes/about/" target="_blank">LinkedIn</a> and{' '}
         <a rel="noopener noreferrer" href="https://www.instagram.com/mubes_unimelb/" target="_blank">Instagram</a>.
-      </h4>
+      </p>
 
+      <h2 className="display-6 text-center mt-5 mb-5">
+        By signing up as a member, you will:
+      </h2>
 
-      {/*<Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          UoMStudent: "",
-          studentNumber: "",
-          course: "",
-          international: "",
-          graduate: "",
-          over18: "",
-          recaptcha: ""
-        }}
-        validationSchema={ schema }
-        onSubmit={ handleSubmit }
-        validateOnMount
-      >
-        {({
-          values,
-          errors,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          setFieldValue,
-          submitCount
-        }) => (
-          <Form className="pb-4" noValidate onSubmit={ handleSubmit }>
-            <Form.Row>
-              <Form.Group as={Col} lg={4} controlId="firstName">
-                <Form.Label>First name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="firstName"
-                  placeholder="John"
-                  value={ values.firstName }
-                  onChange={ handleChange }
-                  onBlur={ handleBlur }
-                  isInvalid={ submitCount>0 && !!errors.firstName }
-                />
-                <Form.Control.Feedback type="invalid">
-                  { errors.firstName }
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} lg={4} controlId="lastName">
-                <Form.Label>Last name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="lastName"
-                  placeholder="Snow"
-                  value={ values.lastName }
-                  onChange={ handleChange }
-                  onBlur={ handleBlur }
-                  isInvalid={ submitCount>0 && !!errors.lastName }
-                />
-                <Form.Control.Feedback type="invalid">
-                  { errors.lastName }
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} lg={4} controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="email@student.unimelb.edu.au"
-                  value={ values.email }
-                  onChange={ handleChange }
-                  onBlur={ handleBlur }
-                  isInvalid={ submitCount>0 && !!errors.email }
-                />
-                <Form.Control.Feedback type="invalid">
-                  { errors.email }
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Col lg={4}>
-                <Form.Group>
-                  <span>UoM student?</span>
-                  <Form.Check
-                    custom
-                    type="radio"
-                    name="UoMStudent"
-                    value={ values.UoMStudent }
-                    label="Yes"
-                    id="UoMStudentYes"
-                    checked={ values.UoMStudent === 'yes' }
-                    onChange={() => { 
-                      setFieldValue('UoMStudent', 'yes')
-                    }}
-                    onBlur={ handleBlur }
-                    isInvalid={ submitCount>0 && !!errors.over18 }
-                  />
-                  <Form.Check
-                    custom
-                    type="radio"
-                    name="UoMStudent"
-                    value={ values.UoMStudent }
-                    label="No"
-                    id="UoMStudentNo"
-                    checked={ values.UoMStudent === 'no' }
-                    onChange={() => {
-                      setFieldValue('UoMStudent', 'no')
-                      setFieldValue('studentNumber', '')
-                      setFieldValue('course', '')
-                      setFieldValue('international', '')
-                      setFieldValue('graduate', '')
-                    }}
-                    onBlur={ handleBlur }
-                    isInvalid={ submitCount>0 && !!errors.over18 }
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={8}>
-                <Form.Row>
-                  <Form.Group as={Col} lg={6} controlId="studentNumber">
-                    <Form.Label>Student number</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="studentNumber"
-                      placeholder="#######"
-                      value={ values.studentNumber }
-                      onChange={ handleChange }
-                      onBlur={ handleBlur }
-                      isInvalid={ submitCount>0 && !!errors.studentNumber }
-                      disabled={ values.UoMStudent !== 'yes' }
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      { errors.studentNumber }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} lg={6} controlId="course">
-                    <Form.Label>UoM Course</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="course"
-                      placeholder="MEng (Biomedical)"
-                      value={ values.course }
-                      onChange={ handleChange }
-                      onBlur={ handleBlur }
-                      isInvalid={ submitCount>0 && !!errors.studentNumber }
-                      disabled={ values.UoMStudent !== 'yes' }
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      { errors.course }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group as={Col} lg={6}>
-                    <span>Are you an international student?</span>
-                    <Form.Check 
-                      custom
-                      type="radio"
-                      name="international"
-                      value={ values.international }
-                      label="Yes"
-                      id="international"
-                      checked={ values.international === 'yes' }
-                      onChange={() => {
-                        setFieldValue('international', 'yes')
-                      }}
-                      onBlur={ handleBlur }
-                      isInvalid={ submitCount>0 && !!errors.international }
-                      disabled={ values.UoMStudent !== 'yes' }
-                    />
-                    <Form.Check 
-                      custom
-                      type="radio"
-                      name="international"
-                      value={ values.international }
-                      label="No"
-                      id="domestic"
-                      checked={ values.international === 'no' }
-                      onChange={() => {
-                        setFieldValue('international', 'no')
-                      }}
-                      onBlur={ handleBlur }
-                      isInvalid={ submitCount>0 && !!errors.international }
-                      disabled={ values.UoMStudent !== 'yes' }
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} lg={6}>
-                    <span>Are you a graduate student?</span>
-                    <Form.Check
-                      custom
-                      type="radio"
-                      name="graduate"
-                      value={ values.graduate }
-                      label="Yes"
-                      id="postgraduate"
-                      checked={ values.graduate === 'yes' }
-                      onChange={() => {
-                        setFieldValue('graduate', 'yes')
-                      }}
-                      onBlur={ handleBlur }
-                      isInvalid={ submitCount>0 && !!errors.graduate }
-                      disabled={ values.UoMStudent !== 'yes' }
-                    />
-                    <Form.Check
-                      custom
-                      type="radio"
-                      name="graduate"
-                      value={ values.graduate }
-                      label="No"
-                      id="undergraduate"
-                      checked={ values.graduate === 'no' }
-                      onChange={() => {
-                        setFieldValue('graduate', 'no')
-                      }}
-                      onBlur={ handleBlur }
-                      isInvalid={ submitCount>0 && !!errors.graduate }
-                      disabled={ values.UoMStudent !== 'yes' }
-                    />
-                  </Form.Group>
-                </Form.Row>
-              </Col>
-            </Form.Row>
-            <Form.Group>
-              <span>Are you over 18?</span>
-              <Form.Check
-                custom
-                type="radio"
-                name="over18"
-                value={ values.over18 }
-                label="Yes"
-                id="over18"
-                checked={ values.over18 === 'yes' }
-                onChange={() => {
-                  setFieldValue('over18', 'yes')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.over18 }
-              />
-              <Form.Check
-                custom
-                type="radio"
-                name="over18"
-                value={ values.over18 }
-                label="No"
-                id="under18"
-                checked={ values.over18 === 'no' }
-                onChange={() => {
-                  setFieldValue('over18', 'no')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.over18 }
-              />
-            </Form.Group>
-            <Form.Group>
-              <span>Are you able to attend in-person events?</span>
-              <Form.Check
-                custom
-                type="radio"
-                name="inPerson"
-                value={ values.inPerson }
-                label="Yes"
-                id="inPersonAvailable"
-                checked={ values.inPerson === 'yes' }
-                onChange={() => { 
-                  setFieldValue('inPerson', 'yes')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.over18 }
-              />
-              <Form.Check
-                custom
-                type="radio"
-                name="inPerson"
-                value={ values.inPerson }
-                label="No"
-                id="inPersonUnavailable"
-                checked={ values.inPerson === 'no' }
-                onChange={() => {
-                  setFieldValue('inPerson', 'no')
-                }}
-                onBlur={ handleBlur }
-                isInvalid={ submitCount>0 && !!errors.over18 }
-              />
-            </Form.Group>
-            <Recaptcha
-              sitekey="6Ldeb9wUAAAAAKDaIIz8AObKkIvDtEY8R4XtvVTW"
-              render="explicit"
-              onloadCallback={() => console.log('ReCaptcha is ready!')}
-              verifyCallback={ res => setFieldValue('recaptcha', res) }
-              expiredCallback={ res => setFieldValue('recaptcha', "") }
-            />
-            <Button type="submit" className="mt-2" disabled={ isSubmitting || errors.recaptcha }>
-              { isSubmitting &&
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  className="mr-1"
-                  role="status"
-                  aria-hidden="true"
-                />
-              }
-              { isSubmitting ? "Submitting..." : "Submit" }
-            </Button>
-          </Form>
-        )}
-            </Formik>*/}
-      {/*{ showAlert &&
-        <Alert variant={ alertVariant } onClose={ () => setShowAlert(false) } dismissible>
-          { alertMessage }
-        </Alert>
-      }*/}
+      <ul className="list-unstyled d-md-flex justify-content-between">
+        <li className="text-center px-4 mb-5">
+          <img
+            src="img/calendar.svg"
+            alt="Calendar"
+            className="mb-3"
+            width="150"
+            height="150"
+          />
+          <span className="d-block lead mt-4"><strong>Be notified of <Link to='/events'> upcoming events</Link> (like free BBQ!)</strong></span>
+        </li>
+        <li className="text-center px-4 mb-5">
+          <img
+            src="img/newsletter.svg"
+            alt="Newsletter"
+            className="mb-3"
+            width="150"
+            height="150"
+          />
+          <span className="d-block lead mt-4"><strong>Gain access to our fortnightly newsletters</strong></span>
+        </li>
+        <li className="text-center px-4 mb-5">
+          <img
+            src="img/friendship.svg"
+            alt="Community"
+            className="mb-3"
+            width="150"
+            height="150"
+          />
+          <span className="d-block lead mt-4"><strong>Be part of a wholesome community</strong></span>
+        </li>
+      </ul>
+
     </Container>
   )
 }

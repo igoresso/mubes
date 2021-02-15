@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Tabletop from 'tabletop';
 import ReactAudioPlayer from 'react-audio-player';
 import { Helmet } from "react-helmet";
@@ -6,7 +7,8 @@ import { Container, Spinner } from 'react-bootstrap';
 
 import './Guests.scss';
 
-export default (props) => {
+const Guests = props => {
+  const {guests, setGuests} = props;
   const fetchGuests = () => {
     Tabletop.init( {
       key: 'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
@@ -14,12 +16,12 @@ export default (props) => {
       prettyColumnNames: false,
       wanted: ["Guests"] }
     ).then(data => { 
-      props.setGuests(data.reverse());
+      setGuests(data.reverse());
     })
   }
 
   useEffect(() => {
-    if (!props.guests) {
+    if (guests === null) {
       fetchGuests();
     }
   })
@@ -32,7 +34,7 @@ export default (props) => {
       </Helmet>
 
       <h1 className="page-title mb-5 pt-2 text-center">Event Guests</h1>
-      { !props.guests ? (
+      { guests === null ? (
         <div className="text-center m-5">
           <Spinner animation="grow" role="status" variant="primary">
             <span className="sr-only">Loading...</span>
@@ -40,7 +42,7 @@ export default (props) => {
         </div>
       ) : (
         <ul className="guests list-unstyled">
-        { props.guests.map(guest =>
+        { guests.map(guest =>
           <li className="d-md-flex align-items-start mb-5" key={ guest.id.toString() }>
             <img
               src={ guest.img ? guest.img : "img/male.png" }
@@ -87,4 +89,11 @@ export default (props) => {
     </Container>
   );
 }
+
+Guests.propTypes = {
+  guests: PropTypes.array,
+  setGuests: PropTypes.func
+}
+
+export default Guests;
   
