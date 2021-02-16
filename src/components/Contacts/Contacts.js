@@ -16,7 +16,7 @@ export default () => {
 
       <p className="lead text-center mb-4">Do you have any questions? Please do not hesitate to contact us directly.</p>
       
-      <Row className="mb-4">
+      <Row className="mb-5">
         <Col md={5}>
           <a href="mailto:mubes.unimelb@gmail.com" className="contacts-btn" target="_blank">
             <img

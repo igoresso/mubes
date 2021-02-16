@@ -57,7 +57,7 @@ const Faq = props => {
           </Spinner>
         </div>
       ) : (
-        <Accordion defaultActiveKey="1" className="mb-4">
+        <Accordion defaultActiveKey="1" className="mb-5">
           { faq.map(entry => 
             <Card className="border rounded mb-1" key={ entry.id }>
               <Card.Header className="p-2 pr-3">

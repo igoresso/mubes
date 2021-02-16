@@ -40,7 +40,7 @@ const Events = props => {
         </div>
       ) : (
         <Tab.Container id="event-tabs" defaultActiveKey="1">
-          <Row>
+          <Row className="mb-5">
             <Col lg={3} className="mb-4">
               <Nav variant="pills" className="flex-column">
                 { events.map(event =>

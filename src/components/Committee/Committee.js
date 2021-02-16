@@ -41,7 +41,7 @@ const Committee = props => {
           </Spinner>
         </div>
       ) : (
-        <ul className="committee list-unstyled d-sm-flex flex-wrap justify-content-between">
+        <ul className="committee list-unstyled d-sm-flex flex-wrap justify-content-between mb-5">
         { committee.map(member =>
           <li className="text-center mb-4 mb-sm-5 mx-auto" key={ member.id.toString() }>
             <img

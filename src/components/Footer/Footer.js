@@ -42,7 +42,7 @@ export default () => {
             </a>
           </li>
         </ul>
-        <span className="d-block text-muted text-center">&copy; 2014-{year} Melbourne University Biomedical Engineering Society</span>
+        <span className="d-block text-muted text-center">&copy; {year} Melbourne University Biomedical Engineering Society</span>
         <span className="d-block text-muted text-center">Made with <span className="text-danger">&#9829;</span> by <a className="text-decoration-none" rel="noopener noreferrer" href="https://github.com/igoresso" target="_blank">@igoresso</a></span>
       </Container>
     </footer>
