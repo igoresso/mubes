@@ -1,7 +1,7 @@
 .guests {
   img {
-  object-fit: cover;
-  object-position: center;
+    object-fit: cover;
+    object-position: center;
   }
   &__link {
     filter: grayscale(1);
@@ -11,7 +11,7 @@
     }
 
     &:active {
-      filter: grayscale(.5);
+      filter: grayscale(0.5);
     }
   }
-} 
+}

@@ -1,125 +1,157 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Carousel, Container, Row, Col, Card } from 'react-bootstrap';
 
 import './Main.scss';
 
 export default () => {
   return (
-    <React.Fragment>
+    <>
       <Helmet>
         <title>MUBES - Melbourne University Biomedical Engineering Society</title>
-        <meta name="description" content="We encourage and support Biomedical Engineering students and those interested in the field" />
+        <meta
+          name='description'
+          content='We encourage and support Biomedical Engineering students and those interested in the field'
+        />
       </Helmet>
 
-      <Carousel
-        className="mb-4"
-        indicators={false}
-      >
+      <Carousel className='mb-4' indicators={false}>
         <Carousel.Item interval={5000}>
-          <img
-            className="d-block w-100"
-            src="img/engineering.jpg"
-            alt="Welcome slide"
-          />
-          <Carousel.Caption className="text-left">
-            <Card className="carousel-card">
+          <img className='d-block w-100' src='img/engineering.jpg' alt='Welcome slide' />
+          <Carousel.Caption className='text-left'>
+            <Card className='carousel-card'>
               <Card.Body>
-                <Card.Title as="h1">Welcome to the Melbourne University Biomedical Engineering Society!</Card.Title>
-                <Card.Text className="lead mb-6">We encourage and support Biomedical Engineering students and those interested in the field</Card.Text>
-                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+                <Card.Title as='h1'>
+                  Welcome to the Melbourne University Biomedical Engineering Society!
+                </Card.Title>
+                <Card.Text className='lead mb-6'>
+                  We encourage and support Biomedical Engineering students and those interested in
+                  the field
+                </Card.Text>
+                <Link to='/membership' className='btn btn-primary btn-lg' role='button'>
+                  Join now
+                </Link>
               </Card.Body>
             </Card>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={3000}>
-          <img
-            className="d-block w-100"
-            src="img/bbq.jpg"
-            alt="BBQ slide"
-          />
-          <Carousel.Caption className="text-left">
-            <Card className="carousel-card">
+          <img className='d-block w-100' src='img/bbq.jpg' alt='BBQ slide' />
+          <Carousel.Caption className='text-left'>
+            <Card className='carousel-card'>
               <Card.Body>
-                <Card.Title as="h2" className="h1">Start/End of Semester BBQ</Card.Title>
-                <Card.Text className="lead mb-6">Socialize with like-minded people</Card.Text>
-                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+                <Card.Title as='h2' className='h1'>
+                  Start/End of Semester BBQ
+                </Card.Title>
+                <Card.Text className='lead mb-6'>Socialize with like-minded people</Card.Text>
+                <Link to='/membership' className='btn btn-primary btn-lg' role='button'>
+                  Join now
+                </Link>
               </Card.Body>
             </Card>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={3000}>
-            <img
-              className="d-block w-100"
-              src="img/trivia.jpg"
-              alt="Trivia slide"
-            />
-          <Carousel.Caption className="text-left">
-            <Card className="carousel-card">
-              <Card.Body className="card-body">
-                <Card.Title as="h2" className="h1">Join us on our Trivia Night</Card.Title>
-                <Card.Text className="lead mb-6">Win amazing prizes</Card.Text>
-                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+          <img className='d-block w-100' src='img/trivia.jpg' alt='Trivia slide' />
+          <Carousel.Caption className='text-left'>
+            <Card className='carousel-card'>
+              <Card.Body className='card-body'>
+                <Card.Title as='h2' className='h1'>
+                  Join us on our Trivia Night
+                </Card.Title>
+                <Card.Text className='lead mb-6'>Win amazing prizes</Card.Text>
+                <Link to='/membership' className='btn btn-primary btn-lg' role='button'>
+                  Join now
+                </Link>
               </Card.Body>
             </Card>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={3000}>
-          <img
-            className="d-block w-100"
-            src="img/lecture.jpg"
-            alt="Lecture slide"
-          />
-          <Carousel.Caption className="text-left">
-            <Card className="carousel-card">
-              <Card.Body className="card-body">
-                <Card.Title as="h2" className="h1">Take part in our Makerthon</Card.Title>
-                <Card.Text className="lead mb-6">Challenge yourselves</Card.Text>
-                <Link to="/membership" className="btn btn-primary btn-lg" role="button">Join now</Link>
+          <img className='d-block w-100' src='img/lecture.jpg' alt='Lecture slide' />
+          <Carousel.Caption className='text-left'>
+            <Card className='carousel-card'>
+              <Card.Body className='card-body'>
+                <Card.Title as='h2' className='h1'>
+                  Take part in our Makerthon
+                </Card.Title>
+                <Card.Text className='lead mb-6'>Challenge yourselves</Card.Text>
+                <Link to='/membership' className='btn btn-primary btn-lg' role='button'>
+                  Join now
+                </Link>
               </Card.Body>
             </Card>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
       <section>
-        <h2 className="page-title text-center p-2">What can I do after finishing Biomedical Engineering major?</h2>
+        <h2 className='page-title text-center p-2'>
+          What can I do after finishing Biomedical Engineering major?
+        </h2>
         <Container>
-          <Row className="py-4">
-            <Col md={4} className="p-5 p-md-3 text-center">
-              <img src="img/rocket.svg" alt="Rocket" />
+          <Row className='py-4'>
+            <Col md={4} className='p-5 p-md-3 text-center'>
+              <img src='img/rocket.svg' alt='Rocket' />
             </Col>
-            <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-            <h3 className="h3 text-center text-md-left">Launch your own biomedical startup</h3>
-              <p className="lead text-center text-md-left"> Masters of Biomedical Engineering has more subjects where you are given a chance to build your own devices. Check out <a rel="noopener noreferrer" href="https://endeavour.unimelb.edu.au/success-stories/navi-technologies" target="_blank">Navi Technologies</a> and <a rel="noopener noreferrer" href="https://eng.unimelb.edu.au/ingenium/graduate-success-stories/biomedical-engineering-startup-stelect-wins-medtechs-got-talent" target="_blank">Stelect</a> startups co-founded by our alumni!</p>
+            <Col md={8} className='pl-md-5 d-md-flex flex-column justify-content-center'>
+              <h3 className='h3 text-center text-md-left'>Launch your own biomedical startup</h3>
+              <p className='lead text-center text-md-left'>
+                {' '}
+                Masters of Biomedical Engineering has more subjects where you are given a chance to
+                build your own devices. Check out{' '}
+                <a
+                  rel='noopener noreferrer'
+                  href='https://endeavour.unimelb.edu.au/success-stories/navi-technologies'
+                  target='_blank'
+                >
+                  Navi Technologies
+                </a>{' '}
+                and{' '}
+                <a
+                  rel='noopener noreferrer'
+                  href='https://eng.unimelb.edu.au/ingenium/graduate-success-stories/biomedical-engineering-startup-stelect-wins-medtechs-got-talent'
+                  target='_blank'
+                >
+                  Stelect
+                </a>{' '}
+                startups co-founded by our alumni!
+              </p>
             </Col>
           </Row>
         </Container>
-        <div className="bg-light">
+        <div className='bg-light'>
           <Container>
-            <Row className="py-4 flex-md-row-reverse">
-              <Col md={4} className="p-5 p-md-3 text-center">
-                <img src="img/blood.svg" alt="Blood cells" />
+            <Row className='py-4 flex-md-row-reverse'>
+              <Col md={4} className='p-5 p-md-3 text-center'>
+                <img src='img/blood.svg' alt='Blood cells' />
               </Col>
-              <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-                <h3 className="text-center text-md-left">Deep dive into research</h3>
-                <p className="lead text-center text-md-left">Start with an honours year in a lab of your choice - both academic and research institutes. Get involved in research internships.</p>
+              <Col md={8} className='pl-md-5 d-md-flex flex-column justify-content-center'>
+                <h3 className='text-center text-md-left'>Deep dive into research</h3>
+                <p className='lead text-center text-md-left'>
+                  Start with an honours year in a lab of your choice - both academic and research
+                  institutes. Get involved in research internships.
+                </p>
               </Col>
             </Row>
           </Container>
         </div>
         <Container>
-          <Row className="py-4">
-            <Col md={4} className="p-5 p-md-3 text-center">
-              <img src="img/team.svg" alt="Team" />
+          <Row className='py-4'>
+            <Col md={4} className='p-5 p-md-3 text-center'>
+              <img src='img/team.svg' alt='Team' />
             </Col>
-            <Col md={8} className="pl-md-5 d-md-flex flex-column justify-content-center">
-            <h3 className="h3 text-center text-md-left">Join industry as an engineer</h3>
-              <p className="lead text-center text-md-left">You are doing an engineering degree accredited by the Engineers Australia. The program gives you problem solving and interpersonal skills which are in high demand and can be used in any engineering field.</p>
+            <Col md={8} className='pl-md-5 d-md-flex flex-column justify-content-center'>
+              <h3 className='h3 text-center text-md-left'>Join industry as an engineer</h3>
+              <p className='lead text-center text-md-left'>
+                You are doing an engineering degree accredited by the Engineers Australia. The
+                program gives you problem solving and interpersonal skills which are in high demand
+                and can be used in any engineering field.
+              </p>
             </Col>
           </Row>
         </Container>
       </section>
-    </React.Fragment>
-  )
-}
+    </>
+  );
+};
