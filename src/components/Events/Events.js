@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabletop from 'tabletop';
+import DOMPurify from 'dompurify';
+import parse, { domToReact } from 'html-react-parser';
 import { Helmet } from 'react-helmet';
 import { Tab, Nav, Container, Row, Col, Card, Spinner } from 'react-bootstrap';
 
@@ -23,6 +25,15 @@ const Events = props => {
       fetchEvents();
     }
   });
+
+  const options = {
+    replace: domNode => {
+      if (domNode.name === 'p') {
+        return <Card.Text>{domToReact(domNode.children, options)}</Card.Text>;
+      }
+      return false;
+    },
+  };
 
   return (
     <Container as='section'>
@@ -70,15 +81,11 @@ const Events = props => {
                             ) : (
                               ''
                             )}
-                            <Card.Text>{event.description}</Card.Text>
-                            {event.link ? (
+                            {parse(DOMPurify.sanitize(event.description), options)}
+                            {event.link && (
                               <Card.Link href={event.link} className='btn btn-primary'>
                                 Learn More
                               </Card.Link>
-                            ) : (
-                              <Card.Text>
-                                <em>Stay tuned for more info!</em>
-                              </Card.Text>
                             )}
                           </Card.Body>
                         </Col>

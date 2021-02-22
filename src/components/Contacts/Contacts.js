@@ -33,9 +33,7 @@ export default () => {
           </a>
         </Col>
         <Col md={2} className='d-flex justify-content-center align-items-center'>
-          <span className='contacts-separator' role='presentation'>
-            or
-          </span>
+          <span className='contacts-separator'>or</span>
         </Col>
         <Col md={5} className='d-flex justify-content-center'>
           <a
