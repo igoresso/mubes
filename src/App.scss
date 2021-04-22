@@ -6,6 +6,24 @@ body {
   min-width: 320px;
 }
 
+img.responsive {
+  max-width: 100%;
+}
+
+img.responsive[width] {
+  width: auto;
+}
+
+img.responsive[width][height] {
+  height: auto;
+}
+
+img.responsive[src$='.svg'] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
 #root {
   min-height: 100vh;
   display: flex;

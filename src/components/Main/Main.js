@@ -92,7 +92,13 @@ export default () => {
         <Container>
           <Row className='py-4'>
             <Col md={4} className='p-5 p-md-3 text-center'>
-              <img src='img/rocket.svg' alt='Rocket' />
+              <img
+                className='responsive'
+                src='img/rocket.svg'
+                width='208'
+                height='208'
+                alt='Rocket'
+              />
             </Col>
             <Col md={8} className='pl-md-5 d-md-flex flex-column justify-content-center'>
               <h3 className='h3 text-center text-md-left'>Launch your own biomedical startup</h3>
@@ -124,7 +130,13 @@ export default () => {
           <Container>
             <Row className='py-4 flex-md-row-reverse'>
               <Col md={4} className='p-5 p-md-3 text-center'>
-                <img src='img/blood.svg' alt='Blood cells' />
+                <img
+                  className='responsive'
+                  src='img/blood.svg'
+                  width='208'
+                  height='208'
+                  alt='Blood cells'
+                />
               </Col>
               <Col md={8} className='pl-md-5 d-md-flex flex-column justify-content-center'>
                 <h3 className='text-center text-md-left'>Deep dive into research</h3>
@@ -139,7 +151,7 @@ export default () => {
         <Container>
           <Row className='py-4'>
             <Col md={4} className='p-5 p-md-3 text-center'>
-              <img src='img/team.svg' alt='Team' />
+              <img className='responsive' src='img/team.svg' width='208' height='208' alt='Team' />
             </Col>
             <Col md={8} className='pl-md-5 d-md-flex flex-column justify-content-center'>
               <h3 className='h3 text-center text-md-left'>Join industry as an engineer</h3>
