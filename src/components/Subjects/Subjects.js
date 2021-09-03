@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
-import Tabletop from 'tabletop';
+import Papa from 'papaparse';
 import { Helmet } from 'react-helmet';
 import {
   Container,
@@ -33,28 +33,46 @@ const Subjects = props => {
     setLevelFilter('all');
   };
 
-  const fetchSubjects = () => {
-    Tabletop.init({
-      key:
-        'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
-      prettyColumnNames: false,
-      wanted: ['Subjects', 'Reviews'],
-    }).then(data => {
-      const subjectList = data.Subjects.elements;
-      const reviewList = data.Reviews.elements;
-      [...subjectList].forEach((subject, index) => {
-        const reviews = reviewList
-          .filter(review => review.subjectcode === subject.code)
-          .sort((a, b) => b.year - a.year);
-        subjectList[index] = { ...subjectList[index], reviews };
-      });
-      setSubjects(subjectList);
+  const fetchSubjectList = new Promise((resolve, reject) => {
+    Papa.parse(
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vQMRU3Uo0Uxqa-VpBoyFrdohpCuRogd6izhY0AOrQvcIkclp40cvWdzO-_sLivUZPhpqZleoV91iJOb/pub?output=csv',
+      {
+        download: true,
+        header: true,
+        complete: results => {
+          resolve(results.data);
+        },
+        error: reject,
+      }
+    );
+  });
+
+  const fetchReviews = () => {
+    fetchSubjectList.then(subjectList => {
+      Papa.parse(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjyEy58f_T6uD0OmNhaz7jIZfuNYrwNjCR0HZm9scAi5hb5SOP-iBKCmVEj2xLZhYdOZC72sPFNlpO/pub?output=csv',
+        {
+          download: true,
+          header: true,
+          complete: results => {
+            const reviewsRaw = results.data;
+            setSubjects(
+              subjectList.map((subject, index) => {
+                const reviews = reviewsRaw
+                  .filter(review => review.subjectCode === subject.code)
+                  .sort((a, b) => b.year - a.year);
+                return { ...subjectList[index], reviews };
+              })
+            );
+          },
+        }
+      );
     });
   };
 
   useEffect(() => {
     if (subjects === null) {
-      fetchSubjects();
+      fetchReviews();
     }
   });
 

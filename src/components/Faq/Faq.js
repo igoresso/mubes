@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
-import Tabletop from 'tabletop';
+import Papa from 'papaparse';
 import { Helmet } from 'react-helmet';
 import { Container, Spinner, Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
 
@@ -30,21 +30,18 @@ const Faq = props => {
     eventKey: PropTypes.string.isRequired,
   };
 
-  const fetchFaq = () => {
-    Tabletop.init({
-      key:
-        'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
-      simpleSheet: true,
-      prettyColumnNames: false,
-      wanted: ['FAQ'],
-    }).then(data => {
-      setFaq(data);
-    });
-  };
-
   useEffect(() => {
-    if (faq === null) {
-      fetchFaq();
+    if (faq == null) {
+      Papa.parse(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdUsasIhTwWmYrqI7_eI7y2XyEhE5fq0QmD7jVDpzwyN3uhbMd9wIM3WEePxhK8AKClUkfW1nvFI0T/pub?output=csv',
+        {
+          download: true,
+          header: true,
+          complete: results => {
+            setFaq(results.data);
+          },
+        }
+      );
     }
   });
 

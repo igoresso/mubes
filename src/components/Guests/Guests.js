@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Tabletop from 'tabletop';
+import Papa from 'papaparse';
 import ReactAudioPlayer from 'react-audio-player';
 import { Helmet } from 'react-helmet';
 import { Container, Spinner } from 'react-bootstrap';
@@ -9,21 +9,19 @@ import './Guests.scss';
 
 const Guests = props => {
   const { guests, setGuests } = props;
-  const fetchGuests = () => {
-    Tabletop.init({
-      key:
-        'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
-      simpleSheet: true,
-      prettyColumnNames: false,
-      wanted: ['Guests'],
-    }).then(data => {
-      setGuests(data.reverse());
-    });
-  };
 
   useEffect(() => {
     if (guests === null) {
-      fetchGuests();
+      Papa.parse(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxZEtsR1JY8RbwfkpYxTlCo7ExFs0oM_MK_6E_gwxKDdB7Z4HRTpwGq69-EYt0BGFNHRCCOMV0BJxJ/pub?output=csv',
+        {
+          download: true,
+          header: true,
+          complete: results => {
+            setGuests(results.data.reverse());
+          },
+        }
+      );
     }
   });
 

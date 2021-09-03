@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Tabletop from 'tabletop';
+import Papa from 'papaparse';
 import DOMPurify from 'dompurify';
 import parse, { domToReact } from 'html-react-parser';
 import { Helmet } from 'react-helmet';
@@ -8,21 +8,19 @@ import { Tab, Nav, Container, Row, Col, Card, Spinner } from 'react-bootstrap';
 
 const Events = props => {
   const { events, setEvents } = props;
-  const fetchEvents = () => {
-    Tabletop.init({
-      key:
-        'https://docs.google.com/spreadsheets/d/1Q7lguf-60_rz_F57TpL0hEOmsivKCr_d8B4H7l2dyEs/pubhtml',
-      simpleSheet: true,
-      prettyColumnNames: false,
-      wanted: ['Events'],
-    }).then(data => {
-      setEvents(data);
-    });
-  };
 
   useEffect(() => {
-    if (events === null) {
-      fetchEvents();
+    if (events == null) {
+      Papa.parse(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-7FihsepbXoDapzhPK4oMIfjkh8aHVtnFXUfk_TWJVcFVuYwVgAdvVAzjxFy1XSXVTHe8N0Ao3uts/pub?output=csv',
+        {
+          download: true,
+          header: true,
+          complete: results => {
+            setEvents(results.data);
+          },
+        }
+      );
     }
   });
 
