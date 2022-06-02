@@ -1,3 +1,6 @@
 .blockquote:nth-last-of-type(1) {
   margin-bottom: 0 !important;
 }
+.btn-group label:nth-last-child(1) {
+  border-radius: 0;
+}

@@ -1,1 +1,3 @@
-export { default } from './Guests';
+import Guests from './Guests';
+
+export default Guests;

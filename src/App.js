@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import {
   Header,
   Footer,
@@ -16,7 +16,7 @@ import {
 
 import './App.scss';
 
-export default () => {
+export default function () {
   const [committee, setCommittee] = useState(null);
   const [subjects, setSubjects] = useState(null);
   const [faq, setFaq] = useState(null);
@@ -35,35 +35,25 @@ export default () => {
 
       <Header />
       <main>
-        <Switch>
-          <Route exact path='/'>
-            <Main />
-          </Route>
-          <Route exact path='/membership'>
-            <Membership />
-          </Route>
-          <Route exact path='/committee'>
-            <Committee committee={committee} setCommittee={setCommittee} />
-          </Route>
-          <Route exact path='/events'>
-            <Events events={events} setEvents={setEvents} />
-          </Route>
-          <Route exact path='/contacts'>
-            <Contacts />
-          </Route>
-          <Route exact path='/subjects'>
-            <Subjects subjects={subjects} setSubjects={setSubjects} />
-          </Route>
-          <Route exact path='/faq'>
-            <Faq faq={faq} setFaq={setFaq} />
-          </Route>
-          <Route exact path='/guests'>
-            <Guests guests={guests} setGuests={setGuests} />
-          </Route>
-          <Redirect to='/' />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/membership' element={<Membership />} />
+          <Route
+            path='/committee'
+            element={<Committee committee={committee} setCommittee={setCommittee} />}
+          />
+          <Route path='/events' element={<Events events={events} setEvents={setEvents} />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route
+            path='/subjects'
+            element={<Subjects subjects={subjects} setSubjects={setSubjects} />}
+          />
+          <Route path='/faq' element={<Faq faq={faq} setFaq={setFaq} />} />
+          <Route path='/guests' element={<Guests guests={guests} setGuests={setGuests} />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
       </main>
       <Footer />
     </Router>
   );
-};
+}

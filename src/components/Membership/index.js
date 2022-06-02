@@ -1,1 +1,3 @@
-export { default } from './Membership';
+import Membership from './Membership';
+
+export default Membership;

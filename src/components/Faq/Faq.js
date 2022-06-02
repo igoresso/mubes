@@ -1,34 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 import Papa from 'papaparse';
 import { Helmet } from 'react-helmet';
-import { Container, Spinner, Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
+import { Container, Spinner, Accordion } from 'react-bootstrap';
 
 import './Faq.scss';
 
-const Faq = props => {
+function Faq(props) {
   const { faq, setFaq } = props;
-  const [panelIndex, setPanelIndex] = useState('1');
-
-  const CustomToggle = ({ children, eventKey }) => {
-    const customOnClick = useAccordionToggle(eventKey, () => {
-      setPanelIndex(eventKey === panelIndex ? null : eventKey);
-    });
-
-    const customClass = eventKey === panelIndex ? 'pr-4 text-left' : 'pr-4 text-left collapsed';
-
-    return (
-      <Button variant='link' block className={customClass} onClick={customOnClick}>
-        {children}
-      </Button>
-    );
-  };
-
-  CustomToggle.propTypes = {
-    children: PropTypes.string.isRequired,
-    eventKey: PropTypes.string.isRequired,
-  };
 
   useEffect(() => {
     if (faq == null) {
@@ -52,33 +32,37 @@ const Faq = props => {
         <meta name='description' content='Find the answers to frequently asked questions.' />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>FAQ &amp; Answers</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>FAQ &amp; Answers</h1>
       {faq === null ? (
         <div className='text-center m-5'>
           <Spinner animation='grow' role='status' variant='primary'>
-            <span className='sr-only'>Loading...</span>
+            <span className='visually-hidden'>Loading...</span>
           </Spinner>
         </div>
       ) : (
-        <Accordion defaultActiveKey='1' className='mb-5'>
+        <Accordion className='mb-5' defaultActiveKey='1' flush>
           {faq.map(entry => (
-            <Card className='border rounded mb-1' key={entry.id}>
-              <Card.Header className='p-2 pr-3'>
-                <CustomToggle eventKey={entry.id.toString()}>{entry.question}</CustomToggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey={entry.id.toString()}>
-                <Card.Body dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(entry.answer) }} />
-              </Accordion.Collapse>
-            </Card>
+            <Accordion.Item key={entry.id} eventKey={entry.id}>
+              <Accordion.Header>{entry.question}</Accordion.Header>
+              <Accordion.Body
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(entry.answer) }}
+              />
+            </Accordion.Item>
           ))}
         </Accordion>
       )}
     </Container>
   );
-};
+}
 
 Faq.propTypes = {
-  faq: PropTypes.arrayOf(PropTypes.object),
+  faq: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      question: PropTypes.string.isRequired,
+      answer: PropTypes.string.isRequired,
+    })
+  ),
   setFaq: PropTypes.func.isRequired,
 };
 

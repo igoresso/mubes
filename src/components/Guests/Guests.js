@@ -7,7 +7,7 @@ import { Container, Spinner } from 'react-bootstrap';
 
 import './Guests.scss';
 
-const Guests = props => {
+function Guests(props) {
   const { guests, setGuests } = props;
 
   useEffect(() => {
@@ -32,21 +32,21 @@ const Guests = props => {
         <meta name='description' content='Get to know our event guests!' />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>Event Guests</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>Event Guests</h1>
       {guests === null ? (
         <div className='text-center m-5'>
           <Spinner animation='grow' role='status' variant='primary'>
-            <span className='sr-only'>Loading...</span>
+            <span className='visually-hidden'>Loading...</span>
           </Spinner>
         </div>
       ) : (
         <ul className='guests list-unstyled'>
-          {guests.map(guest => (
+          {[...guests].map(guest => (
             <li className='d-md-flex align-items-start mb-5' key={guest.id.toString()}>
               <img
                 src={guest.img ? guest.img : 'img/male.png'}
                 alt={guest.name}
-                className='d-block rounded flex-shrink-0 mx-auto mr-md-4 mb-2'
+                className='d-block rounded flex-shrink-0 mx-auto me-md-4 mb-2'
                 width='200'
               />
               <div className='d-flex flex-column align-items-center align-items-md-start'>
@@ -54,7 +54,7 @@ const Guests = props => {
                   {guest.name}
                   {guest.linkedin && (
                     <a
-                      className='guests__link ml-2'
+                      className='guests__link ms-2'
                       rel='noopener noreferrer'
                       href={guest.linkedin}
                       target='_blank'
@@ -96,10 +96,21 @@ const Guests = props => {
       )}
     </Container>
   );
-};
+}
 
 Guests.propTypes = {
-  guests: PropTypes.arrayOf(PropTypes.object),
+  guests: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      img: PropTypes.string,
+      position: PropTypes.string,
+      company: PropTypes.string,
+      linkedin: PropTypes.string,
+      companyinfo: PropTypes.string,
+      recording: PropTypes.string,
+    })
+  ),
   setGuests: PropTypes.func.isRequired,
 };
 

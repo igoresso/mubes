@@ -16,7 +16,7 @@ import {
 
 import './Subjects.scss';
 
-const Subjects = props => {
+function Subjects(props) {
   const { subjects, setSubjects } = props;
 
   const [levelFilter, setLevelFilter] = useState('all');
@@ -86,36 +86,44 @@ const Subjects = props => {
         />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>Subjects</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>Subjects</h1>
       <p>
         Melbourne University Biomedical Engineering Society is delighted to present you reviews for
         Biomedical Engineering major subjects. We hope this will help you to make an informed
         choice. Subject structure including all assessments can be found in the Handbook. If you
-        have any subject specific questions feel free to <Link to='/contacts'>contact us</Link>{' '}
+        have any subject specific questions feel free to{' '}
+        <Link className='text-decoration-none' to='/contacts'>
+          contact us
+        </Link>{' '}
         directly.
       </p>
       {subjects === null ? (
         <div className='text-center m-5'>
           <Spinner animation='grow' role='status' variant='primary'>
-            <span className='sr-only'>Loading...</span>
+            <span className='visually-hidden'>Loading...</span>
           </Spinner>
         </div>
       ) : (
         <>
           <Form className='mb-3'>
             <InputGroup>
-              <InputGroup.Prepend
-                as={ToggleButtonGroup}
+              <ToggleButtonGroup
                 type='radio'
                 name='options'
                 value={levelFilter}
                 onChange={onLevelChange}
               >
-                <ToggleButton value='all'>All</ToggleButton>
-                <ToggleButton value='undergrad'>Undergrad</ToggleButton>
-                <ToggleButton value='postgrad'>Postgrad</ToggleButton>
-              </InputGroup.Prepend>
-              <Form.Control as='select' value={codeFilter} onChange={onSubjectChange}>
+                <ToggleButton className='text-white' id='all' value='all'>
+                  All
+                </ToggleButton>
+                <ToggleButton className='text-white' id='undergrad' value='undergrad'>
+                  Undergrad
+                </ToggleButton>
+                <ToggleButton className='text-white' id='postgrad' value='postgrad'>
+                  Postgrad
+                </ToggleButton>
+              </ToggleButtonGroup>
+              <Form.Select value={codeFilter} onChange={onSubjectChange}>
                 <option value=''>Select subject</option>
                 {subjects
                   .filter(subject => subject.reviews.length > 0)
@@ -125,7 +133,7 @@ const Subjects = props => {
                       key={subject.id}
                     >{`${subject.code} - ${subject.name}`}</option>
                   ))}
-              </Form.Control>
+              </Form.Select>
             </InputGroup>
           </Form>
           {subjects
@@ -149,7 +157,7 @@ const Subjects = props => {
                   {subject.reviews.map(review => (
                     <blockquote className='blockquote mb-5' key={review.id}>
                       <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.text) }} />
-                      <footer className='blockquote-footer'>
+                      <footer className='blockquote-footer mt-2'>
                         <cite title={review.author}>
                           {review.author} ({review.year})
                         </cite>
@@ -163,10 +171,24 @@ const Subjects = props => {
       )}
     </Container>
   );
-};
+}
 
 Subjects.propTypes = {
-  subjects: PropTypes.arrayOf(PropTypes.object),
+  subjects: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      level: PropTypes.string.isRequired,
+      reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          author: PropTypes.string,
+          year: PropTypes.string,
+          text: PropTypes.string,
+        })
+      ),
+    })
+  ),
   setSubjects: PropTypes.func.isRequired,
 };
 

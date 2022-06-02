@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 
 import './Footer.scss';
 
-export default () => {
+function Footer() {
   const date = new Date();
   const year = date.getFullYear();
 
@@ -11,7 +11,7 @@ export default () => {
     <footer className='pt-4 pb-2 bg-light'>
       <Container>
         <ul className='social list-inline text-center'>
-          <li className='list-inline-item mr-4'>
+          <li className='list-inline-item me-4'>
             <a
               rel='noopener noreferrer'
               href='https://www.facebook.com/groups/mubes.unimelb/'
@@ -21,7 +21,7 @@ export default () => {
               <img src='img/facebook.svg' width='40' height='40' alt='Facebook logo' />
             </a>
           </li>
-          <li className='list-inline-item mr-4'>
+          <li className='list-inline-item me-4'>
             <a
               rel='noopener noreferrer'
               href='https://www.linkedin.com/company/mu-bmes/about/'
@@ -59,4 +59,6 @@ export default () => {
       </Container>
     </footer>
   );
-};
+}
+
+export default Footer;

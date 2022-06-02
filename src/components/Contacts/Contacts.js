@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import './Contacts.scss';
 
-export default () => {
+function Contacts() {
   return (
     <Container as='section'>
       <Helmet>
@@ -15,7 +15,7 @@ export default () => {
         />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>Contacts</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>Contacts</h1>
 
       <p className='lead text-center mb-4'>
         Do you have any questions? Please do not hesitate to contact us directly.
@@ -48,4 +48,6 @@ export default () => {
       </Row>
     </Container>
   );
-};
+}
+
+export default Contacts;

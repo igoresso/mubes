@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
-export default () => {
+function Membership() {
   return (
     <Container as='section'>
       <Helmet>
@@ -14,18 +14,24 @@ export default () => {
         />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>Membership</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>Membership</h1>
 
       <p className='lead'>
-        Join us by filling in{' '}
-        <a rel='noopener noreferrer' href='https://mubes.getqpay.com/' target='_blank'>
-          this
-        </a>{' '}
-        form! Membership fee is $5 and can only be paid through our QPay form for now. Follow us on{' '}
+        Join us{' '}
+        <a
+          rel='noopener noreferrer'
+          href='https://umsu.unimelb.edu.au/buddy-up/clubs/clubs-listing/join/6245/'
+          target='_blank'
+          className='fw-bolder text-decoration-none'
+        >
+          here
+        </a>
+        ! Follow us on{' '}
         <a
           rel='noopener noreferrer'
           href='https://www.facebook.com/groups/mubes.unimelb/'
           target='_blank'
+          className='text-decoration-none'
         >
           Facebook
         </a>
@@ -34,6 +40,7 @@ export default () => {
           rel='noopener noreferrer'
           href='https://www.linkedin.com/company/mu-bmes/about/'
           target='_blank'
+          className='text-decoration-none'
         >
           LinkedIn
         </a>{' '}
@@ -42,6 +49,7 @@ export default () => {
           rel='noopener noreferrer'
           href='https://www.instagram.com/mubes_unimelb/'
           target='_blank'
+          className='text-decoration-none'
         >
           Instagram
         </a>
@@ -50,16 +58,21 @@ export default () => {
 
       <h2 className='display-6 text-center mt-5 mb-5'>By signing up as a member, you will:</h2>
 
-      <ul className='list-unstyled d-md-flex justify-content-between'>
-        <li className='text-center px-4 mb-5'>
+      <Row className='list-unstyled' as='ul'>
+        <Col className='text-center mb-5' md={4} as='li'>
           <img src='img/calendar.svg' alt='Calendar' className='mb-3' width='150' height='150' />
-          <span className='d-block lead mt-4'>
+          <span className='d-block lead mt-4 fs-4'>
             <strong>
-              Be notified of <Link to='/events'> upcoming events</Link> (like free BBQ!)
+              Be notified of{' '}
+              <Link to='/events' className='text-decoration-none'>
+                {' '}
+                upcoming events
+              </Link>{' '}
+              (like free BBQ!)
             </strong>
           </span>
-        </li>
-        <li className='text-center px-4 mb-5'>
+        </Col>
+        <Col className='text-center mb-5' md={4} as='li'>
           <img
             src='img/newsletter.svg'
             alt='Newsletter'
@@ -67,17 +80,19 @@ export default () => {
             width='150'
             height='150'
           />
-          <span className='d-block lead mt-4'>
+          <span className='d-block lead mt-4 fs-4'>
             <strong>Gain access to our fortnightly newsletters</strong>
           </span>
-        </li>
-        <li className='text-center px-4 mb-5'>
+        </Col>
+        <Col className='text-center mb-5' md={4} as='li'>
           <img src='img/friendship.svg' alt='Community' className='mb-3' width='150' height='150' />
-          <span className='d-block lead mt-4'>
+          <span className='d-block lead mt-4 fs-4'>
             <strong>Be part of a wholesome community</strong>
           </span>
-        </li>
-      </ul>
+        </Col>
+      </Row>
     </Container>
   );
-};
+}
+
+export default Membership;

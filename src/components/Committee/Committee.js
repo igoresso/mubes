@@ -6,7 +6,7 @@ import { Container, Spinner } from 'react-bootstrap';
 
 import './Committee.scss';
 
-const Committee = props => {
+function Committee(props) {
   const { committee, setCommittee } = props;
 
   useEffect(() => {
@@ -31,18 +31,18 @@ const Committee = props => {
         <meta name='description' content='Meet the committee!' />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>Committee</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>Committee</h1>
 
       {committee === null ? (
         <div className='text-center m-5'>
           <Spinner animation='grow' role='status' variant='primary'>
-            <span className='sr-only'>Loading...</span>
+            <span className='visually-hidden'>Loading...</span>
           </Spinner>
         </div>
       ) : (
         <ul className='committee list-unstyled d-sm-flex flex-wrap justify-content-between mb-5'>
           {committee.map(member => (
-            <li className='text-center mb-4 mb-sm-5 mx-auto' key={member.id.toString()}>
+            <li className='text-center mb-4 mb-sm-5 mx-auto' key={member.id}>
               <img
                 src={member.img ? member.img : 'img/male.png'}
                 alt={member.name}
@@ -58,10 +58,17 @@ const Committee = props => {
       )}
     </Container>
   );
-};
+}
 
 Committee.propTypes = {
-  committee: PropTypes.arrayOf(PropTypes.object),
+  committee: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      img: PropTypes.string,
+      role: PropTypes.string.isRequired,
+    })
+  ),
   setCommittee: PropTypes.func.isRequired,
 };
 

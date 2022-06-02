@@ -6,7 +6,15 @@ import parse, { domToReact } from 'html-react-parser';
 import { Helmet } from 'react-helmet';
 import { Tab, Nav, Container, Row, Col, Card, Spinner } from 'react-bootstrap';
 
-const Events = props => {
+const options = {
+  replace: domNode => {
+    if (domNode.name === 'p') {
+      return <Card.Text>{domToReact(domNode.children, options)}</Card.Text>;
+    }
+    return false;
+  },
+};
+function Events(props) {
   const { events, setEvents } = props;
 
   useEffect(() => {
@@ -24,15 +32,6 @@ const Events = props => {
     }
   });
 
-  const options = {
-    replace: domNode => {
-      if (domNode.name === 'p') {
-        return <Card.Text>{domToReact(domNode.children, options)}</Card.Text>;
-      }
-      return false;
-    },
-  };
-
   return (
     <Container as='section'>
       <Helmet>
@@ -40,12 +39,12 @@ const Events = props => {
         <meta name='description' content='Meet the committee!' />
       </Helmet>
 
-      <h1 className='page-title mb-5 pt-2 text-center'>Events</h1>
+      <h1 className='page-title mb-5 pt-3 text-center'>Events</h1>
 
       {events === null ? (
         <div className='text-center m-5'>
           <Spinner animation='grow' role='status' variant='primary'>
-            <span className='sr-only'>Loading...</span>
+            <span className='visually-hidden'>Loading...</span>
           </Spinner>
         </div>
       ) : (
@@ -55,7 +54,9 @@ const Events = props => {
               <Nav variant='pills' className='flex-column'>
                 {events.map(event => (
                   <Nav.Item key={event.id}>
-                    <Nav.Link eventKey={event.id}>{event.title}</Nav.Link>
+                    <Nav.Link eventKey={event.id} role='button'>
+                      {event.title}
+                    </Nav.Link>
                   </Nav.Item>
                 ))}
               </Nav>
@@ -98,10 +99,18 @@ const Events = props => {
       )}
     </Container>
   );
-};
+}
 
 Events.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.object),
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      img: PropTypes.string,
+      description: PropTypes.string,
+      link: PropTypes.string,
+    })
+  ),
   setEvents: PropTypes.func.isRequired,
 };
 
