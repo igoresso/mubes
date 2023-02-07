@@ -47,8 +47,8 @@ function Committee(props) {
                 src={member.img ? member.img : 'img/male.png'}
                 alt={member.name}
                 className='img-thumbnail rounded-circle mb-3'
-                width='200'
-                height='200'
+                width='220'
+                height='220'
               />
               <h2 className='h5 mb-1 px-2'>{member.name}</h2>
               <span className='d-block text-muted text-center px-2'>{member.role}</span>

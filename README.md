@@ -1,13 +1,13 @@
-<p align="center">
-	  <img  src="https://mubes.club/img/logo.svg" alt="MUBES logo" width="50%"/>
-</p>
+<img  style="float: left;" src="https://mubes.club/img/logo.svg" alt="MUBES logo" width="50%"/>
 
 # Melbourne University Biomedical Engineering Society
+
 We enhance social, educational and professional opportunities for members through regular workshops and events related to biomedical engineering
 
-[*Learn more*](https://mubes.club/)
+[_Learn more_](https://mubes.club/)
 
 ## Follow us
+
 [<img src="https://mubes.club/img/facebook.svg" width="40" height="40" alt="MUBES on Facebook" align="left">](https://www.facebook.com/groups/mubes.unimelb/)
 
 [<img src="https://mubes.club/img/linkedin.svg" width="40" height="40" alt="MUBES on LinkedIn" align="left">](https://www.linkedin.com/company/mu-bmes/about/)
