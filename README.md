@@ -1,4 +1,6 @@
-<img  style="float: left;" src="https://mubes.club/img/logo.svg" alt="MUBES logo" width="50%"/>
+<p align="center">
+  <img src="https://mubes.club/img/logo.svg" height="100" alt="MUBES Logo">
+</p>
 
 # Melbourne University Biomedical Engineering Society
 
