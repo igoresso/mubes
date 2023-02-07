@@ -8,7 +8,7 @@ function Header() {
       <Navbar expand='lg' variant='light'>
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            <img src='img/logo.svg' width='200' height='56' alt='MUBES logo' />
+            <img src='img/logo.svg' width='57' height='56' alt='MUBES logo' />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
