@@ -77,7 +77,7 @@ function Main() {
                   Take part in our Makerthon
                 </Card.Title>
                 <Card.Text className='lead mb-6'>Challenge yourselves</Card.Text>
-                <Link to='/membership' className='btn btn-primary btn-lg' role='button'>
+                <Link to='/membership' className='btn btn-primary btn-lg text-white' role='button'>
                   Join now
                 </Link>
               </Card.Body>

@@ -68,7 +68,9 @@ function Events(props) {
                     <Card>
                       <Row>
                         <Col md={4}>
-                          <img src={event.img} alt={event.title} className='m-4' />
+                          <div className='p-4 pe-md-0'>
+                            <img src={event.img} alt={event.title} className='img-fluid' />
+                          </div>
                         </Col>
                         <Col md={8}>
                           <Card.Body>
@@ -82,7 +84,7 @@ function Events(props) {
                             )}
                             {parse(DOMPurify.sanitize(event.description), options)}
                             {event.link && (
-                              <Card.Link href={event.link} className='btn btn-primary'>
+                              <Card.Link href={event.link} className='btn btn-primary text-white'>
                                 Learn More
                               </Card.Link>
                             )}
